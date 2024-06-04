@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "KuroAcad2025": {
+    "KuroAcad": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2025\\acad.exe",
       "commandLineArgs": "/nologo /b \"start.scr\""

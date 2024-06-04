@@ -1,11 +1,11 @@
 ﻿
 //using Autodesk.AutoCAD.ApplicationServices;
 
-//namespace KuroAcad2025.Extensions
+//namespace KuroAcad.Extensions
 //{
-//    class Extensions
+//    class BuildTable
 //    {
-//        public static Table BuildTable(string title, List<string> headers, Point3d insertPoint, MyDataCollection tableData, Document doc)
+//        public static Table buildTable(string title, List<string> headers, Point3d insertPoint, MyDataCollection tableData, Document doc)
 //        {
 //            /*
 //                 *Table gets created with default 1 row and 1 column

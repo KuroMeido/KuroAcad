@@ -1,6 +1,6 @@
-﻿[assembly: CommandClass(typeof(KuroAcad2025.Commands))]
+﻿[assembly: CommandClass(typeof(KuroAcad.Commands))]
 
-namespace KuroAcad2025
+namespace KuroAcad
 {
     public class Commands
     {

@@ -1,6 +1,6 @@
-﻿[assembly: ExtensionApplication(typeof(KuroAcad2025.ExtensionApplication))]
+﻿[assembly: ExtensionApplication(typeof(KuroAcad.ExtensionApplication))]
 
-namespace KuroAcad2025
+namespace KuroAcad
 {
     internal class ExtensionApplication : IExtensionApplication
     {
@@ -17,7 +17,7 @@ namespace KuroAcad2025
             if (doc != null)
             {
                 Application.Idle -= OnIdle;
-                doc.Editor.WriteMessage("\nKuroAcad2025 loaded.\n");
+                doc.Editor.WriteMessage("\nKuroAcad loaded.\n");
             }
         }
 

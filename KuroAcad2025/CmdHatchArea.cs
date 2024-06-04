@@ -1,7 +1,9 @@
 ﻿
-[assembly: CommandClass(typeof(KuroAcad2025.CmdHatchArea))]
+using KuroAcad.Extensions;
 
-namespace KuroAcad2025
+[assembly: CommandClass(typeof(KuroAcad.CmdHatchArea))]
+
+namespace KuroAcad
 {
     class CmdHatchArea
     {
@@ -93,7 +95,7 @@ namespace KuroAcad2025
                         
                     }
 
-                    acTable.Cells[rowIndex, 0].TextString = inDex.ToString();
+                    acTable.Cells[rowIndex, 0].TextString = KuroExtensions.convertToRoman(inDex);
                     acTable.Cells[rowIndex, 1].TextString = layerName;
                     acTable.Cells[rowIndex, 2].TextString = layerArea.ToString("F2");
                     rowIndex++;
@@ -116,10 +118,10 @@ namespace KuroAcad2025
                 }
 
                 // Thiết lập tiêu đề cho bảng
-                acTable.Cells[0,0].SetValue("BANG THONG KE SU DUNG DAT", ParseOption.ParseOptionNone) ;
+                acTable.Cells[0,0].SetValue("BANG CO CAU SU DUNG DAT", ParseOption.ParseOptionNone) ;
 
                 //THIẾT LẬP HÀNG ĐẤT GIAO THÔNG
-                acTable.Cells[acTable.NumRows - 2, 0].TextString = (acTable.NumRows - 3).ToString();
+                acTable.Cells[acTable.NumRows - 2, 0].TextString = KuroExtensions.convertToRoman((acTable.NumRows - 3));
                 acTable.Cells[acTable.NumRows - 2, 1].TextString ="DAT GIAO THONG";
                 acTable.Cells[acTable.NumRows - 2, 2].TextString = (totalArea - totalAreaHatch).ToString("F2");
                 acTable.Cells[acTable.NumRows - 2, 3].TextString = (((totalArea - totalAreaHatch)/ totalArea) * 100).ToString("F2") + "%";

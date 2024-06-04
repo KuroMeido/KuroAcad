@@ -5,6 +5,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PlatformTarget>x64</PlatformTarget>
+		<RootNamespace>KuroAcad</RootNamespace>
+		<AssemblyName>KuroAcad</AssemblyName>
+		<UseWindowsForms>false</UseWindowsForms>
 	</PropertyGroup>
   
 	<ItemGroup>
@@ -58,6 +61,11 @@
 	  <Using Include="System.Math">
 	    <Static>True</Static>
 	  </Using>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\" />
+	  <Folder Include="UI\" />
 	</ItemGroup>
 
 </Project>

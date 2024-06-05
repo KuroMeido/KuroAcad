@@ -1,4 +1,7 @@
-﻿[assembly: ExtensionApplication(typeof(KuroAcad.ExtensionApplication))]
+﻿using Autodesk.AutoCAD.Windows;
+using KuroAcad.UI;
+
+[assembly: ExtensionApplication(typeof(KuroAcad.ExtensionApplication))]
 
 namespace KuroAcad
 {
@@ -24,4 +27,21 @@ namespace KuroAcad
         public void Terminate()
         { }
     }
+
+    public class CustomPaletteSet : PaletteSet
+    {
+        // constructor
+        public CustomPaletteSet()
+            : base("MyPalette", new Guid("{0dc9e6a7-1ae1-4ec4-b107-97ff8e0fd74d}"))
+        {
+            Palette = new demoWPF();
+            //get Palette Uri
+            var uri = new Uri("pack://application:,,,/KuroAcad;component/UI/demoWPF.xaml");
+            Add("Tab 1", uri);
+        }
+
+        // public read only property
+        public demoWPF Palette { get; }
+    }
+
 }

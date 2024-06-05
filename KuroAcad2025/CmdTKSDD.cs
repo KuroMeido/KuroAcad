@@ -1,14 +1,11 @@
-﻿
-using KuroAcad.Extensions;
-
-[assembly: CommandClass(typeof(KuroAcad.CmdHatchArea))]
+﻿[assembly: CommandClass(typeof(KuroAcad.CmdTKSDD))]
 
 namespace KuroAcad
 {
-    class CmdHatchArea
+    class CmdTKSDD
     {
-        [CommandMethod("KuroHatch")]
-        public void KuroHatch()
+        [CommandMethod("KUROTKSDD")]
+        public void KuroTKSDD()
         {
             // Lấy document đang hoạt động
             var acDoc = Application.DocumentManager.MdiActiveDocument;
@@ -91,8 +88,8 @@ namespace KuroAcad
                     foreach (Entity ent in hatchList)
                     {
                         Hatch hatch = (Hatch)ent;
-                        layerArea += hatch.Area/10000;
-                        
+                        layerArea += hatch.Area / 10000;
+
                     }
 
                     acTable.Cells[rowIndex, 0].TextString = KuroExtensions.convertToRoman(inDex);
@@ -118,18 +115,18 @@ namespace KuroAcad
                 }
 
                 // Thiết lập tiêu đề cho bảng
-                acTable.Cells[0,0].SetValue("BANG CO CAU SU DUNG DAT", ParseOption.ParseOptionNone) ;
+                acTable.Cells[0, 0].SetValue("BANG CO CAU SU DUNG DAT", ParseOption.ParseOptionNone);
 
                 //THIẾT LẬP HÀNG ĐẤT GIAO THÔNG
                 acTable.Cells[acTable.NumRows - 2, 0].TextString = KuroExtensions.convertToRoman((acTable.NumRows - 3));
-                acTable.Cells[acTable.NumRows - 2, 1].TextString ="DAT GIAO THONG";
+                acTable.Cells[acTable.NumRows - 2, 1].TextString = "DAT GIAO THONG";
                 acTable.Cells[acTable.NumRows - 2, 2].TextString = (totalArea - totalAreaHatch).ToString("F2");
-                acTable.Cells[acTable.NumRows - 2, 3].TextString = (((totalArea - totalAreaHatch)/ totalArea) * 100).ToString("F2") + "%";
+                acTable.Cells[acTable.NumRows - 2, 3].TextString = (((totalArea - totalAreaHatch) / totalArea) * 100).ToString("F2") + "%";
 
                 //thiết lập hàng tổng diện tích
-                acTable.Cells[acTable.NumRows-1, 0].TextString= "TONG CONG";
-                acTable.Cells[acTable.NumRows-1, 2].TextString = totalArea.ToString();
-                acTable.Cells[acTable.NumRows-1, 3].TextString = "100%";
+                acTable.Cells[acTable.NumRows - 1, 0].TextString = "TONG CONG";
+                acTable.Cells[acTable.NumRows - 1, 2].TextString = totalArea.ToString();
+                acTable.Cells[acTable.NumRows - 1, 3].TextString = "100%";
 
                 // Thêm bảng vào không gian hiện tại
                 BlockTableRecord btr = (BlockTableRecord)acTrans.GetObject(acDb.CurrentSpaceId, OpenMode.ForWrite);

@@ -101,7 +101,7 @@ namespace KuroAcad
                     {
                         using (AttributeReference acAtt = (AttributeReference)acTrans.GetObject(acAttId, OpenMode.ForRead))
                         {
-                            if (acAtt.Tag == "A")
+                            if (acAtt.Tag == "TEN")
                             {
                                 if (acAtt.TextString[0] == strKey)
                                 {
@@ -131,7 +131,7 @@ namespace KuroAcad
                     {
                         using (AttributeReference acAtt = (AttributeReference)acTrans.GetObject(acAttId, OpenMode.ForRead))
                         {
-                            if (acAtt.Tag == "A")
+                            if (acAtt.Tag == "TEN")
                             {
                                 if (!listChar.Contains(acAtt.TextString[0]))
                                 {
@@ -176,19 +176,19 @@ namespace KuroAcad
                 {
                     using (AttributeReference acAtt = (AttributeReference)acTrans.GetObject(acAttId, OpenMode.ForRead))
                     {
-                        if (acAtt.Tag == "A")
+                        if (acAtt.Tag == "TEN")
                         {
                             blName = acAtt.TextString;
                         }
-                        else if (acAtt.Tag.ToString() == "8053,44")
+                        else if (acAtt.Tag.ToString() == "DT")
                         {
                             blSquare = double.Parse(acAtt.TextString) / 10000;
                         }
-                        else if (acAtt.Tag.ToString() == "70,0")
+                        else if (acAtt.Tag.ToString() == "MDXD")
                         {
                             mDXDmax = double.Parse(acAtt.TextString) / 10;
                         }
-                        else if (acAtt.Tag.ToString() == "5")
+                        else if (acAtt.Tag.ToString() == "TC")
                         {
                             tangCaoMax = int.Parse(acAtt.TextString);
                         }

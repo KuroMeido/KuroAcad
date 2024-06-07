@@ -4,7 +4,7 @@
 
 namespace KuroAcad
 {
-    internal class CmdTKLD
+    public class CmdTKLD
     {
         [CommandMethod("KuroTKLD")]
 

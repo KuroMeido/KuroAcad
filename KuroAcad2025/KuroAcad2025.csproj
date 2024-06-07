@@ -15,6 +15,10 @@
 	</ItemGroup>
   
 	<ItemGroup>
+	  <PackageReference Include="System.Management" Version="8.0.0" />
+	</ItemGroup>
+  
+	<ItemGroup>
 	  <Reference Include="accoremgd">
 	    <HintPath>..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcCoreMgd.dll</HintPath>
 	    <Private>False</Private>
@@ -62,5 +66,7 @@
 	    <Static>True</Static>
 	  </Using>
 	</ItemGroup>
+
+	<Import Project="..\KuroAcadShared\KuroAcadShared.projitems" Label="Shared" />
 
 </Project>

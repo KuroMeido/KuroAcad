@@ -11,7 +11,7 @@ namespace KuroAcad
     {
         public void Initialize()
         {
-            if (!KeyGenerator.IsRightComputer("C46D0C60-640BEE27"))
+            if (!KeyGenerator.IsRightComputer("18DBE8E0"))
             {
                 Application.ShowAlertDialog("The key is not right");
                 //not load the application

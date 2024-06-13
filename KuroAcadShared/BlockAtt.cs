@@ -335,5 +335,68 @@
                 }
             }
         }
+
+        static void WriteBoundaryArea(Database acCurdb, ObjectIdCollection collection)
+        {
+            double boundaryArea = GetBoundaryArea(acCurdb, collection);
+
+            using (Transaction tr = acCurdb.TransactionManager.StartTransaction())
+            {
+                foreach (ObjectId id in collection)
+                {
+                    Entity ent = (Entity)tr.GetObject(id, OpenMode.ForWrite);
+
+                    if (ent is BlockReference)
+                    {
+                        BlockReference blockRef = (BlockReference)ent;
+                        BlockTableRecord btr = (BlockTableRecord)tr.GetObject(blockRef.BlockTableRecord, OpenMode.ForRead);
+
+                        // Tìm text object ở center của boundary
+                        foreach (ObjectId subId in btr)
+                        {
+                            Entity subEnt = (Entity)tr.GetObject(subId, OpenMode.ForWrite);
+                            if (subEnt is MText)
+                            {
+                                MText mtext = (MText)subEnt;
+                                mtext.Contents = $"Boundary Area: {boundaryArea:F2} sq.units";
+                                mtext.Attachment = AttachmentPoint.MiddleCenter;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                tr.Commit();
+            }
+        }
+
+        private static double GetBoundaryArea(Database acCurdb, ObjectIdCollection collection)
+        {
+            double totalArea = 0;
+
+            using (Transaction tr = acCurdb.TransactionManager.StartTransaction())
+            {
+                foreach (ObjectId id in collection)
+                {
+                    Entity ent = (Entity)tr.GetObject(id, OpenMode.ForRead);
+
+                    if (ent is Polyline)
+                    {
+                        Polyline poly = (Polyline)ent;
+                        totalArea += poly.Area;
+                    }
+                    else if (ent is Circle)
+                    {
+                        Circle circle = (Circle)ent;
+                        totalArea += Math.PI * circle.Radius * circle.Radius;
+                    }
+                    // Xử lý các loại đối tượng hình học khác tương tự
+                }
+
+                tr.Commit();
+            }
+
+            return totalArea;
+        }
     }
 }

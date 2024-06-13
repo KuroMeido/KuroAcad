@@ -1,4 +1,6 @@
-﻿[assembly: CommandClass(typeof(KuroAcad.CmdTKSDD))]
+﻿using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+
+[assembly: CommandClass(typeof(KuroAcad.CmdTKSDD))]
 
 namespace KuroAcad
 {

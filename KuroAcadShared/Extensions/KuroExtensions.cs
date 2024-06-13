@@ -219,6 +219,72 @@ namespace KuroAcad
             acTable.Cells[acTable.Rows.Count - count - 2, 7].TextString = (mDXDmax / 100 * tangCaoMax).ToString("F2");  
         }
 
+        //method to get center point of polyline
+        public static Point3d GetCenterPoint(Polyline pl)
+        {
+            Point3d cenPt = new Point3d();
+            Point3d pt = pl.GeometricExtents.MaxPoint;
+            cenPt = new Point3d((pl.GeometricExtents.MinPoint.X + pl.GeometricExtents.MaxPoint.X) / 2,
+                                (pl.GeometricExtents.MinPoint.Y + pl.GeometricExtents.MaxPoint.Y) / 2, 0);
+            return cenPt;
+        }
 
+        //method to insert a Block
+        public static BlockReference InsertingABlock(Database db, Transaction acTrans, string blockName, Point3d originPt)
+        {
+            //Open the block table for read
+            BlockTable acBlkTbl;
+            acBlkTbl = acTrans.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
+            ObjectId blkRecId = ObjectId.Null;
+            if (!acBlkTbl.Has(blockName))
+            {
+                using (BlockTableRecord acBlkTblRec = new BlockTableRecord())
+                {
+                    acBlkTblRec.Name = blockName;
+
+                    //Set the insertion point for the block
+                    acBlkTblRec.Origin = originPt;
+
+                    blkRecId = acBlkTblRec.Id;
+                }
+            }
+            else
+            {
+                blkRecId = acBlkTbl[blockName];
+            }
+            // Insert the block into the current space
+            if (blkRecId != ObjectId.Null)
+            {
+                using (BlockReference acBlkRef = new BlockReference(new Point3d(0, 0, 0), blkRecId))
+                {
+                    BlockTableRecord acCurSpaceBlkTblRec;
+                    acCurSpaceBlkTblRec = acTrans.GetObject(db.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+
+                    acCurSpaceBlkTblRec.AppendEntity(acBlkRef);
+                    acTrans.AddNewlyCreatedDBObject(acBlkRef, true);
+                    return acBlkRef;
+                }
+            }
+            return null;
+
+        }
+
+        //method to copy entitie in the current model space
+        public static void CopyEntities(Database db, Transaction acTrans, Entity ent, Point3d pt)
+        {
+            using (Entity entCopy = ent.Id.GetObject(OpenMode.ForRead) as Entity)
+            {
+                if (entCopy != null)
+                {
+                    Entity entCopy1 = entCopy.Clone() as Entity;
+                    entCopy1.TransformBy(Matrix3d.Displacement(pt.GetAsVector()));
+                    BlockTableRecord acBlkTblRec;
+                    acBlkTblRec = acTrans.GetObject(db.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                    acBlkTblRec.AppendEntity(entCopy1);
+                    acTrans.AddNewlyCreatedDBObject(entCopy1, true);
+                }
+            }
+
+        }
     }
 }

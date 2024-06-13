@@ -2,6 +2,7 @@
 using KuroAcad.UI;
 using System.IO;
 using System.Management;
+using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 [assembly: ExtensionApplication(typeof(KuroAcad.ExtensionApplication))]
 

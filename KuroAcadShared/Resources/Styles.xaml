@@ -19,8 +19,6 @@
     <SolidColorBrush x:Key="border_magenta" Color="#EE82EE" />
     <SolidColorBrush x:Key="border_blue" Color="DodgerBlue" />
 
-    <SolidColorBrush x:Key="uncheckbox_checked_colour" Color="Gray" />
-    <SolidColorBrush x:Key="checkbox_checked_colour" Color="#EE82EE" />
 
     <SolidColorBrush x:Key="footer_donate" Color="#FF4C70" />
 
@@ -722,9 +720,39 @@
     <!-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     >>[RADIOBUTTON START] -->
     <Style TargetType="RadioButton">
-        <Setter Property="BorderBrush" Value="{StaticResource border_blue}"/>
-        <Setter Property="Background" Value="{StaticResource header_background}"/>
         <Setter Property="Foreground" Value="{StaticResource text_white}"/>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <BulletDecorator >
+                        <BulletDecorator.Bullet>
+                            <Grid Width="13" 
+                                Height="13" >
+                                <Ellipse x:Name="Border"  
+                                        StrokeThickness="1"
+                                        Stroke="{StaticResource border_blue}"
+                                         Fill="{StaticResource header_background}"/>
+                                <Ellipse x:Name="CheckMark"
+                                        Margin="4"
+                                         Fill="{DynamicResource border_magenta}"
+                                        />
+                            </Grid>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter 
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        RecognizesAccessKey="True"/>
+                    </BulletDecorator>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

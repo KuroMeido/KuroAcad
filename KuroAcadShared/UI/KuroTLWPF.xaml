@@ -99,12 +99,10 @@
                 <RadioButton Grid.Row="1" Content="4"
                          Checked="radioButtonOption"
                          x:Name="radioButton4"
-                         IsChecked="False"
                          VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3"/>
                 <RadioButton Grid.Row="1" Content="5"
                          Checked="radioButtonOption"
                          x:Name="radioButton5"
-                         IsChecked="False"
                          VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20 3"/>
             </Grid>
         </GroupBox>
@@ -138,27 +136,27 @@
                         <TextBlock Grid.Column="2" Text="Area" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox Grid.Column="3" Text="DT" 
                              x:Name="textBoxArea"
+                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <!--TAG MDXD-->
                         <TextBlock Text="Density" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
                         <TextBox Grid.Column="1" Text="MD"
                              x:Name="textBoxDensity"
-                             IsEnabled="{Binding ElementName=radioButton4, Path=IsChecked}"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
                         <!--TAG TC-->
                         <TextBlock Grid.Column="2" Text="Floors" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
                         <TextBox Grid.Column="3" Text="TC"
                              x:Name="textBoxFloors"
-                             IsEnabled="{Binding ElementName=radioButton4, Path=IsChecked}"
+                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
                         <!--TAG FAR-->
                         <TextBlock Text="FAR" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Margin="5"/>
                         <TextBox Grid.Column="1" Text="HS"
                              x:Name="textBoxFAR"
-                             IsEnabled="{Binding ElementName=radioButton5,Path=IsChecked}"
+                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2"/>
                     </Grid>
@@ -187,7 +185,7 @@
                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                         <TextBlock Grid.Column="2" Text="Start" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
-                        <TextBox Grid.Column="3" Text="0" 
+                        <TextBox Grid.Column="3" Text="1" 
                              x:Name="textBoxStartNumber"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center"/>

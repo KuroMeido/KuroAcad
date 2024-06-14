@@ -26,48 +26,48 @@
                         // Add a circle to the block
                         using (Circle acCirc = new Circle())
                         {
-                            if (attTag == 1)
-                            {
-                                // Set the center and the radius of the circle
-                                acCirc.Center = insertPoint;
-                                acCirc.Radius = 1.5;
+                            //if (attTag == 1)
+                            //{
+                            //    // Set the center and the radius of the circle
+                            //    acCirc.Center = insertPoint;
+                            //    acCirc.Radius = 1.5;
 
-                                acBlkTblRec.AppendEntity(acCirc);
+                            //    acBlkTblRec.AppendEntity(acCirc);
 
-                                // Add attribute definition to the block
-                                AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
-                            }
-                            if (attTag == 2)
-                            {
-                                // Set the center and the radius of the circle
-                                acCirc.Center = insertPoint;
-                                acCirc.Radius = 3;
+                            //    // Add attribute definition to the block
+                            //    AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
+                            //}
+                            //if (attTag == 2)
+                            //{
+                            //    // Set the center and the radius of the circle
+                            //    acCirc.Center = insertPoint;
+                            //    acCirc.Radius = 3;
 
-                                acBlkTblRec.AppendEntity(acCirc);
+                            //    acBlkTblRec.AppendEntity(acCirc);
 
-                                // Add attribute definition to the block
-                                AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
-                            }
-                            if (attTag == 4)
-                            {
-                                // Set the center and the radius of the circle
-                                acCirc.Center = insertPoint;
-                                acCirc.Radius = 8;
+                            //    // Add attribute definition to the block
+                            //    AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
+                            //}
+                            //if (attTag == 4)
+                            //{
+                            //    // Set the center and the radius of the circle
+                            //    acCirc.Center = insertPoint;
+                            //    acCirc.Radius = 8;
 
-                                acBlkTblRec.AppendEntity(acCirc);
-                                // Add attribute definition to the block
-                                AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
-                            }
-                            if (attTag == 5)
-                            {
-                                // Set the center and the radius of the circle
-                                acCirc.Center = insertPoint;
-                                acCirc.Radius = 8;
+                            //    acBlkTblRec.AppendEntity(acCirc);
+                            //    // Add attribute definition to the block
+                            //    AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
+                            //}
+                            //if (attTag == 5)
+                            //{
+                            //    // Set the center and the radius of the circle
+                            //    acCirc.Center = insertPoint;
+                            //    acCirc.Radius = 8;
 
-                                acBlkTblRec.AppendEntity(acCirc);
-                                // Add attribute definition to the block
-                                AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
-                            }
+                            //    acBlkTblRec.AppendEntity(acCirc);
+                            //    // Add attribute definition to the block
+                            //    AddAttToBlock(blockName, attTag, insertPoint, acCurdb);
+                            //}
 
                         }
                         blRecId = acBlkTblRec.Id;
@@ -122,218 +122,41 @@
         }
 
         //method to add list attribute tag to block
-        public void AddAttToBlock(string blockName, int attTag, Point3d insertPoint, Database acCurdb)
+        public void AddAttToBlock(BlockTableRecord acBlkTblRec, int tagCount, string tagName, string valueName, string tagArea, Transaction acTrans, BlockTable acBlkTbl, Database acCurDb)
         {
-            using (Transaction acTrans = acCurdb.TransactionManager.StartTransaction())
+            if (tagCount == 2)
             {
-                //Open the block table for read
-                BlockTable acBlkTbl;
-                acBlkTbl = acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForRead) as BlockTable;
-
-                if (!acBlkTbl.Has(blockName))
+                using (AttributeDefinition acAttDef = new AttributeDefinition(),
+                                     acAttDef1 = new AttributeDefinition())
                 {
-                    using (BlockTableRecord acBlTblRec = new BlockTableRecord())
-                    {
-                        acBlTblRec.Name = blockName;
+                    acAttDef.Position = new Point3d(0, 0, 0);
+                    acAttDef.Verifiable = true;
+                    acAttDef.Prompt = "TEN:";
+                    acAttDef.Tag = tagName;
+                    acAttDef.TextString = valueName;
+                    acAttDef.Height = 1;
+                    acAttDef.Justify = AttachmentPoint.MiddleCenter;
+                    acAttDef.AlignmentPoint = new Point3d(0, 1.5, 0);
 
-                        // Add an attribute definition to the block
-                        if (attTag == 1)
-                        {
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = insertPoint;
-                                acAttDef.Prompt = "Enter Tag: ";
-                                acAttDef.Tag = "TL";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
+                    acAttDef1.Position = new Point3d(0, 0, 0);
+                    acAttDef1.Verifiable = true;
+                    acAttDef1.Prompt = "Dien tich:";
+                    acAttDef1.Tag = tagArea;
+                    acAttDef1.TextString = "150";
+                    acAttDef1.Height = 1;
+                    acAttDef1.Justify = AttachmentPoint.MiddleCenter;
+                    acAttDef1.AlignmentPoint = new Point3d(0, -1.5, 0);
 
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                        }
-                        if (attTag == 2)
-                        {
-                            Point3d pt1 = new Point3d(insertPoint.X, insertPoint.Y + 1, insertPoint.Z);
-                            Point3d pt2 = new Point3d(insertPoint.X, insertPoint.Y - 1, insertPoint.Z);
+                    acBlkTblRec.AppendEntity(acAttDef);
+                    acBlkTblRec.AppendEntity(acAttDef1);
 
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt1;
-                                acAttDef.Prompt = "Enter Tag: ";
-                                acAttDef.Tag = "TL";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt2;
-                                acAttDef.Prompt = "Enter Tag: ";
-                                acAttDef.Tag = "DT";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                        }
-                        if (attTag == 4)
-                        {
-                            Point3d pt1 = new Point3d(insertPoint.X, insertPoint.Y + 3.5, insertPoint.Z);
-                            Point3d pt2 = insertPoint;
-                            Point3d pt3 = new Point3d(insertPoint.X - 2, insertPoint.Y - 3.5, insertPoint.Z);
-                            Point3d pt4 = new Point3d(insertPoint.X + 2, insertPoint.Y - 3.5, insertPoint.Z);
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt1;
-                                acAttDef.Prompt = "Ten lo: ";
-                                acAttDef.Tag = "TL";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt2;
-                                acAttDef.Prompt = "Dien tich: ";
-                                acAttDef.Tag = "DT";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt3;
-                                acAttDef.Prompt = "Mat do xay dung: ";
-                                acAttDef.Tag = "MDXD";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt4;
-                                acAttDef.Prompt = "Tang cao: ";
-                                acAttDef.Tag = "TC";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                        }
-                        if (attTag == 5)
-                        {
-                            Point3d pt1 = new Point3d(insertPoint.X, insertPoint.Y + 3.5, insertPoint.Z);
-                            Point3d pt2 = new Point3d(insertPoint.X - 2, insertPoint.Y, insertPoint.Z); ;
-                            Point3d pt3 = new Point3d(insertPoint.X + 2, insertPoint.Y, insertPoint.Z);
-                            Point3d pt4 = new Point3d(insertPoint.X - 2, insertPoint.Y - 3.5, insertPoint.Z);
-                            Point3d pt5 = new Point3d(insertPoint.X + 2, insertPoint.Y - 3.5, insertPoint.Z);
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt1;
-                                acAttDef.Prompt = "Ten lo: ";
-                                acAttDef.Tag = "TL";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt2;
-                                acAttDef.Prompt = "Dien tich: ";
-                                acAttDef.Tag = "DT";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt3;
-                                acAttDef.Prompt = "Mat do xay dung: ";
-                                acAttDef.Tag = "MDXD";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt4;
-                                acAttDef.Prompt = "Tang cao: ";
-                                acAttDef.Tag = "TC";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                            using (AttributeDefinition acAttDef = new AttributeDefinition())
-                            {
-                                acAttDef.Position = pt5;
-                                acAttDef.Prompt = "He so: ";
-                                acAttDef.Tag = "HSSDD";
-                                acAttDef.TextString = "";
-                                acAttDef.Height = 1;
-                                acAttDef.Justify = AttachmentPoint.MiddleCenter;
-                                acBlTblRec.AppendEntity(acAttDef);
-
-                                acTrans.GetObject(acCurdb.BlockTableId, OpenMode.ForWrite);
-                                acBlkTbl.Add(acBlTblRec);
-                                acTrans.AddNewlyCreatedDBObject(acAttDef, true);
-                            }
-                        }
-                        //save the new object to the database
-                        acTrans.Commit();
-                        //Dispose of the transaction 
-                    }
+                    acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForWrite);
+                    acBlkTbl.Add(acBlkTblRec);
+                    acTrans.AddNewlyCreatedDBObject(acBlkTblRec, true);
                 }
+
             }
+
         }
 
         static void WriteBoundaryArea(Database acCurdb, ObjectIdCollection collection)

@@ -1,4 +1,5 @@
-﻿using KuroAcad.UI;
+﻿using System.Xml.Linq;
+using KuroAcad.UI;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using RadioButton = System.Windows.Controls.RadioButton;
 
@@ -7,14 +8,18 @@ namespace KuroAcad
 {
     class CmdCreateBlock
     {
-        [CommandMethod("KuroAddBlockAtt")]
-        public void KuroAddBlockAtt()
+        [CommandMethod("KuroTemDat")]
+        public void KuroTemDat()
         {
             // Get the current database and start a transaction
             Database acCurDb;
             acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
 
+            // Get active Document and Database
+            var acDoc = Application.DocumentManager.MdiActiveDocument;
+
             // Data input
+            #region Data input
             string blockName = "";
 
             string tagName = "";
@@ -33,8 +38,10 @@ namespace KuroAcad
             int polyIndex = 0;
 
             double circleRadius = 3;
-            
+            #endregion
+
             // Show Dialog
+            #region Get Result from Dialog
             KuroTLWPF kuroTLWPF = new KuroTLWPF();
             kuroTLWPF.ShowDialog();
 
@@ -82,23 +89,41 @@ namespace KuroAcad
                 }
                 blockName = kuroTLWPF.textBoxBlockName.Text;
                 polyIndex = int.Parse(kuroTLWPF.textBoxStartNumber.Text);
-                valueName = kuroTLWPF.textBoxPrefix.Text + polyIndex.ToString();
+                
             }
+            #endregion
 
+            //Get list of polyline from user
+            #region Get list of polyline from user
+            List<Polyline> pls = new List<Polyline>();
+            PromptSelectionOptions pso = new PromptSelectionOptions();
+            pso.AllowDuplicates = false;
+            pso.AllowSubSelections = false;
+            pso.MessageForAdding = "\nChọn lô đất";
 
+            PromptSelectionResult psr = acDoc.Editor.GetSelection(pso);
+            if (psr.Status != PromptStatus.OK || psr.Value.Count == 0)
+            {
+                return;
+            }
+            #endregion
+
+            //Start a transaction
+            #region Start a transaction
             using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
             {
+                #region Create new block
                 // Open the Block table for read
                 BlockTable acBlkTbl;
                 acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
 
                 ObjectId blkRecId = ObjectId.Null;
 
-                if (!acBlkTbl.Has("TEMDAT"))
+                if (!acBlkTbl.Has(blockName))
                 {
                     using (BlockTableRecord acBlkTblRec = new BlockTableRecord())
                     {
-                        acBlkTblRec.Name = "TEMDAT";
+                        acBlkTblRec.Name = blockName;
 
                         // Set the insertion point for the block
                         acBlkTblRec.Origin = new Point3d(0, 0, 0);
@@ -123,8 +148,8 @@ namespace KuroAcad
                                 acAttDef.Position = new Point3d(0, 0, 0);
                                 acAttDef.Verifiable = true;
                                 acAttDef.Prompt = "TEN:";
-                                acAttDef.Tag = "TL";
-                                acAttDef.TextString = "LK01";
+                                acAttDef.Tag = tagName;
+                                acAttDef.TextString = "-";
                                 acAttDef.Height = 1;
                                 acAttDef.Justify = AttachmentPoint.MiddleCenter;
                                 acAttDef.AlignmentPoint = new Point3d(0, 1.5, 0);
@@ -132,8 +157,8 @@ namespace KuroAcad
                                 acAttDef1.Position = new Point3d(0, 0, 0);
                                 acAttDef1.Verifiable = true;
                                 acAttDef1.Prompt = "Dien tich:";
-                                acAttDef1.Tag = "DT";
-                                acAttDef1.TextString = "150";
+                                acAttDef1.Tag = tagArea;
+                                acAttDef1.TextString = "-";
                                 acAttDef1.Height = 1;
                                 acAttDef1.Justify = AttachmentPoint.MiddleCenter;
                                 acAttDef1.AlignmentPoint = new Point3d(0, -1.5, 0);
@@ -152,61 +177,130 @@ namespace KuroAcad
                 }
                 else
                 {
-                    blkRecId = acBlkTbl["TEMDAT"];
+                    blkRecId = acBlkTbl[blockName];
                 }
+                #endregion
+
+                //Get list of polyline
+                #region Get list of polyline List<PolyLine> pls
+                foreach (SelectedObject so in psr.Value)
+                {
+                    Entity ent = (Entity)acTrans.GetObject(so.ObjectId, OpenMode.ForRead);
+                    if (ent is Polyline)
+                    {
+                        Polyline pl = ent as Polyline;
+                        pls.Add(pl);
+                    }
+                }
+                #endregion
 
                 // Insert the block into the current space
-                if (blkRecId != ObjectId.Null)
+                #region Insert the block into the current space
+                foreach (Polyline pl in pls)
                 {
-                    BlockTableRecord acBlkTblRec;
-                    acBlkTblRec = acTrans.GetObject(blkRecId, OpenMode.ForRead) as BlockTableRecord;
+                    //Get center point of polyline
+                    Point3d cenPt = KuroExtensions.GetCenterPoint(pl);
+
+                    //Get area of polyline
+                    double area = pl.Area;
+
+                    //Get name of polyline
+                    valueName = kuroTLWPF.textBoxPrefix.Text + polyIndex.ToString();
 
                     // Create and insert the new block reference
-                    using (BlockReference acBlkRef = new BlockReference(new Point3d(2, 2, 0), blkRecId))
+                    #region Create and insert the new block reference
+                    if (blkRecId != ObjectId.Null)
                     {
-                        BlockTableRecord acCurSpaceBlkTblRec;
-                        acCurSpaceBlkTblRec = acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                        BlockTableRecord acBlkTblRec;
+                        acBlkTblRec = acTrans.GetObject(blkRecId, OpenMode.ForRead) as BlockTableRecord;
 
-                        acCurSpaceBlkTblRec.AppendEntity(acBlkRef);
-                        acTrans.AddNewlyCreatedDBObject(acBlkRef, true);
-
-                        // Verify block table record has attribute definitions associated with it
-                        if (acBlkTblRec.HasAttributeDefinitions)
+                        
+                        using (BlockReference acBlkRef = new BlockReference(cenPt, blkRecId))
                         {
-                            // Add attributes from the block table record
-                            foreach (ObjectId objID in acBlkTblRec)
+                            BlockTableRecord acCurSpaceBlkTblRec;
+                            acCurSpaceBlkTblRec = acTrans.GetObject(acCurDb.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+
+                            acCurSpaceBlkTblRec.AppendEntity(acBlkRef);
+                            acTrans.AddNewlyCreatedDBObject(acBlkRef, true);
+
+                            // Verify block table record has attribute definitions associated with it
+                            #region Verify block table record has attribute definitions associated with it
+                            if (acBlkTblRec.HasAttributeDefinitions)
                             {
-                                DBObject dbObj = acTrans.GetObject(objID, OpenMode.ForRead) as DBObject;
-
-                                if (dbObj is AttributeDefinition)
+                                // Add attributes from the block table record
+                                foreach (ObjectId objID in acBlkTblRec)
                                 {
-                                    AttributeDefinition acAtt = dbObj as AttributeDefinition;
+                                    DBObject dbObj = acTrans.GetObject(objID, OpenMode.ForRead) as DBObject;
 
-                                    if (!acAtt.Constant)
+                                    if (dbObj is AttributeDefinition)
                                     {
-                                        using (AttributeReference acAttRef = new AttributeReference())
+                                        AttributeDefinition acAtt = dbObj as AttributeDefinition;
+
+                                        if (!acAtt.Constant)
                                         {
-                                            acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
-                                            acAttRef.Position = acAtt.Position.TransformBy(acBlkRef.BlockTransform);
+                                            using (AttributeReference acAttRef = new AttributeReference())
+                                            {
+                                                acAttRef.SetAttributeFromBlock(acAtt, acBlkRef.BlockTransform);
+                                                acAttRef.Position = acAtt.Position.TransformBy(acBlkRef.BlockTransform);
 
-                                            acAttRef.TextString = acAtt.TextString;
+                                                acAttRef.TextString = acAtt.TextString;
 
-                                            acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
+                                                acBlkRef.AttributeCollection.AppendAttribute(acAttRef);
 
-                                            acTrans.AddNewlyCreatedDBObject(acAttRef, true);
+                                                acTrans.AddNewlyCreatedDBObject(acAttRef, true);
+                                            }
                                         }
                                     }
                                 }
                             }
+                            #endregion
+
+                            // Get attribute value
+                            AttributeCollection acAttColl = acBlkRef.AttributeCollection;
+
+                            //Set attribute value
+                            #region Set attribute value
+                            foreach (ObjectId acAttId in acAttColl)
+                            {
+                                using (AttributeReference acAtt = (AttributeReference)acTrans.GetObject(acAttId, OpenMode.ForRead))
+                                {
+                                    if (acAtt.Tag == tagName)
+                                    {
+                                        acAtt.TextString = valueName;
+                                    }
+                                    else if (acAtt.Tag.ToString() == tagArea)
+                                    {
+                                        acAtt.TextString = area.ToString("F2");
+                                    }
+                                    else if (acAtt.Tag.ToString() == tagDensity)
+                                    {
+                                        acAtt.TextString = valueDensity;
+                                    }
+                                    else if (acAtt.Tag.ToString() == tagFloors)
+                                    {
+                                        acAtt.TextString = valueFloors;
+                                    }
+                                    else if (acAtt.Tag.ToString() == tagFAR)
+                                    {
+                                        acAtt.TextString = valueFAR;
+                                    }
+                                }
+                            }
+                            #endregion
                         }
                     }
+                    #endregion
+
+                    polyIndex++;
                 }
+                #endregion
 
                 // Save the new object to the database
                 acTrans.Commit();
 
                 // Dispose of the transaction
             }
+            #endregion
         }
     }
 }

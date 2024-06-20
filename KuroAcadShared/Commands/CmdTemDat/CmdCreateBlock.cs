@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using KuroAcad.UI;
+﻿using KuroAcad.UI;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using RadioButton = System.Windows.Controls.RadioButton;
 
@@ -11,11 +10,11 @@ namespace KuroAcad
         [CommandMethod("KuroTemDat")]
         public void KuroTemDat()
         {
-            // Get the current database and start a transaction
+            // Get the current database
             Database acCurDb;
             acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
 
-            // Get active Document and Database
+            // Get active Document
             var acDoc = Application.DocumentManager.MdiActiveDocument;
 
             // Data input
@@ -89,7 +88,7 @@ namespace KuroAcad
                 }
                 blockName = kuroTLWPF.textBoxBlockName.Text;
                 polyIndex = int.Parse(kuroTLWPF.textBoxStartNumber.Text);
-                
+
             }
             #endregion
 
@@ -214,7 +213,7 @@ namespace KuroAcad
                         BlockTableRecord acBlkTblRec;
                         acBlkTblRec = acTrans.GetObject(blkRecId, OpenMode.ForRead) as BlockTableRecord;
 
-                        
+
                         using (BlockReference acBlkRef = new BlockReference(cenPt, blkRecId))
                         {
                             BlockTableRecord acCurSpaceBlkTblRec;

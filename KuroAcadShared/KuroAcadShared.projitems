@@ -9,9 +9,8 @@
     <Import_RootNamespace>KuroAcad</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CmdCreateBlock.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdRTD.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdTL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\CmdCreateBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdGetTD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdSetTD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdShowAlert\CmdShowAlert.cs" />
@@ -20,6 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKLD\CmdTKLD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKSDD\CmdTKSDD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BlockAtt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBLoadUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entry\ExtensionApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BuildTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\KuroExtensions.cs" />
@@ -33,8 +34,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\KuroTLWPF.xaml.cs">
       <DependentUpon>KuroTLWPF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\SqlWPF.xaml.cs">
+      <DependentUpon>SqlWPF.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)PaletteTabView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -50,9 +57,14 @@
     <Page Include="$(MSBuildThisFileDirectory)UI\KuroTLWPF.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UI\SqlWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdShowAlert\MVVM\" />
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTD\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\" />
+    <Folder Include="$(MSBuildThisFileDirectory)CmdDBLoad\" />
   </ItemGroup>
 </Project>

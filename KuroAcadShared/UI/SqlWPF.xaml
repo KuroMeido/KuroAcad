@@ -1,0 +1,165 @@
+﻿<Window x:Class="KuroAcad.UI.SqlWPF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KuroAcad.UI"
+        mc:Ignorable="d"
+        Background="#181735"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Height="340" Width="380">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                 Source="\Resources\Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color= "#33FC467B" Offset="0" />
+                <GradientStop Color="#333F5EFB" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--HEADER START-->
+        <Grid   
+             Background="{StaticResource header_background}"
+             Grid.ColumnSpan="3" >
+            <!--HEADER GRID-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+
+            <!--LOGO-->
+            <DockPanel  Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left">
+                <TextBlock Margin="5,0,0,0" Grid.ColumnSpan="1">
+                 <Hyperlink  
+                     FontSize="14px"
+                     FontWeight="Heavy"
+                     Foreground="{StaticResource text_white}">
+                     KuroAddIn
+                 </Hyperlink>
+                </TextBlock>
+            </DockPanel>
+
+            <!--__TITLE__-->
+            <TextBlock x:Name="main_title"
+             Text="SQL Sever Database"
+             Grid.Column="1"
+             VerticalAlignment="Center"
+             HorizontalAlignment="Center"
+             Foreground="{StaticResource text_white}"/>
+
+            <!--CLOSE-->
+            <Button Content="Close"
+                 Grid.Column="2"
+                 Width="60" Height="20"
+                 FontSize="10"
+                 Click="button_close"
+                 IsCancel="True"
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Center" Margin="0,0,0,3"/>
+        </Grid>
+        <!--HEADER END-->
+
+        <!--CONTENT START-->
+        <!--OPTION START-->
+        <GroupBox Grid.Row="1" Header="Option" Margin="10 3" x:Name="groupBox_Option">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+            </Grid>
+        </GroupBox>
+        <!--OPTION END-->
+
+        <!--TAGNAME START-->
+        <GroupBox Grid.Row="2" Header="Tag Name" Margin="10 3">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--TAG NAME-->
+                    <TextBlock Grid.Column="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+                    <TextBox Grid.Column="1" Text="TL" 
+                             x:Name="textBoxName"
+                             Width="100" Height="30"  
+                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <!--TAG AREA-->
+                    <TextBlock Grid.Column="2" Text="Area" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+                    <TextBox Grid.Column="3" Text="DT" 
+                             x:Name="textBoxArea"
+                             Width="100" Height="30" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <!--TAG MDXD-->
+                    <TextBlock Text="Density" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
+                    <TextBox Grid.Column="1" Text="MD"
+                             x:Name="textBoxDensity"
+                             Width="100" Height="30" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
+                    <!--TAG TC-->
+                    <TextBlock Grid.Column="2" Text="Floors" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
+                    <TextBox Grid.Column="3" Text="TC"
+                             x:Name="textBoxFloors"
+                             Width="100" Height="30" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
+                    <!--TAG FAR-->
+                    <TextBlock Text="FAR" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Margin="5"/>
+                    <TextBox Grid.Column="1" Text="HS"
+                             x:Name="textBoxFAR"
+                             Width="100" Height="30" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <!--TAGNAME END-->
+
+        <!--Status START-->
+        <GroupBox Grid.Row="3" Header="Status" Margin="10 3">
+            <TextBlock x:Name="textBlockResult" Text="abd..." VerticalAlignment="Center" Margin="10 3"/>
+        </GroupBox>
+        <!--Status END-->
+        <!--CONTENT END-->
+
+        <!--BUTTON OK START-->
+        <Grid Grid.Row="4">
+            <Button Click="buttonLoadLine_click"
+                 Content="Load Lines to DB" VerticalAlignment="Center" 
+                 HorizontalAlignment="Center" Height="30" Width="120" Margin="3" />
+        </Grid>
+        <!--BUTTON OK END-->
+    </Grid>
+</Window>

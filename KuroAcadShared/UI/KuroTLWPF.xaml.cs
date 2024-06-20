@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using Application = System.Windows.Application;
 using RadioButton = System.Windows.Controls.RadioButton;
 
 namespace KuroAcad.UI
 {
-    public partial class KuroTLWPF: Window
+    public partial class KuroTLWPF : Window
     {
         public KuroTLWPF()
         {
@@ -29,7 +28,7 @@ namespace KuroAcad.UI
                                 .Children.OfType<RadioButton>()
                                 .FirstOrDefault(rb => rb.IsChecked.Value == true)
                                 .Name;
-            if (ActionSelectionButtonName == "radioButton2" && textBoxDensity!= null)
+            if (ActionSelectionButtonName == "radioButton2" && textBoxDensity != null)
             {
                 this.textBoxDensity.IsEnabled = false;
                 this.textBoxFloors.IsEnabled = false;

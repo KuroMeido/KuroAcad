@@ -136,7 +136,6 @@
                         <TextBlock Grid.Column="2" Text="Area" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
                         <TextBox Grid.Column="3" Text="DT" 
                              x:Name="textBoxArea"
-                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <!--TAG MDXD-->
@@ -149,14 +148,12 @@
                         <TextBlock Grid.Column="2" Text="Floors" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
                         <TextBox Grid.Column="3" Text="TC"
                              x:Name="textBoxFloors"
-                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
                         <!--TAG FAR-->
                         <TextBlock Text="FAR" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Margin="5"/>
                         <TextBox Grid.Column="1" Text="HS"
                              x:Name="textBoxFAR"
-                             IsEnabled="False"
                              Width="100" Height="30" 
                              VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2"/>
                     </Grid>

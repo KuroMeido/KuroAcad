@@ -9,7 +9,7 @@
     <Import_RootNamespace>KuroAcad</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\CmdPalette.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\CmdCreateBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdGetTD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdSetTD.cs" />
@@ -21,10 +21,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)BlockAtt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBLoadUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\CustomPaletteSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entry\ExtensionApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BuildTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\KuroExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\MyDataCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\LayerColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabView.xaml.cs">
+      <DependentUpon>PaletteTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\alertWPF.xaml.cs">
       <DependentUpon>alertWPF.xaml</DependentUpon>
     </Compile>
@@ -39,7 +47,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)PaletteTabView.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resources\Styles.xaml">
@@ -66,5 +74,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTD\" />
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\" />
     <Folder Include="$(MSBuildThisFileDirectory)CmdDBLoad\" />
+    <Folder Include="$(MSBuildThisFileDirectory)CmdPalette\" />
   </ItemGroup>
 </Project>

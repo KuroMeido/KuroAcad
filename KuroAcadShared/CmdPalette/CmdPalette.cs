@@ -1,7 +1,7 @@
 ﻿using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
-[assembly: CommandClass(typeof(KuroAcad.CmdPalette))]
-namespace KuroAcad
+[assembly: CommandClass(typeof(KuroAcad.UI.CmdPalette))]
+namespace KuroAcad.UI
 {
     class CmdPalette
     {
@@ -38,7 +38,7 @@ namespace KuroAcad
 
             // choice the layer
             if (string.IsNullOrEmpty(layer))
-                layer = (string)Application.GetSystemVariable("Layer");
+                layer = (string)Application.GetSystemVariable("clayer");
             var strOptions = new PromptStringOptions("\nLayer Name: ");
             strOptions.DefaultValue = layer;
             strOptions.UseDefaultValue = true;
@@ -60,7 +60,7 @@ namespace KuroAcad
             var ppr = ed.GetPoint("\nCenter: ");
             if (ppr.Status == PromptStatus.OK)
             {
-                // dessin du cercle dans l'espace courant
+                // draw the circle in the current space
                 using (var tr = db.TransactionManager.StartTransaction())
                 {
                     var curSpace =

@@ -426,8 +426,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource border_magenta}"/>
         <Setter Property="Foreground" Value="{StaticResource border_magenta}"/>
     </Style>-->
-    <!-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    >>[COMBOBOX] -->
+    <!-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>[COMBOBOX] -->
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>

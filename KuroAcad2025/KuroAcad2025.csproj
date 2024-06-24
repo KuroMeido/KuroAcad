@@ -9,6 +9,8 @@
 		<AssemblyName>KuroAcad</AssemblyName>
 		<UseWindowsForms>true</UseWindowsForms>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<OutputType>Library</OutputType>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
   
 	<ItemGroup>

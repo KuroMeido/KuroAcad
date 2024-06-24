@@ -23,7 +23,7 @@ namespace KuroAcad
             return sb.ToString();
         }
 
-        public static void SortStringList(List<string> stringList)
+        internal static void SortStringList(List<string> stringList)
         {
             stringList.Sort((a, b) =>
             {
@@ -40,7 +40,7 @@ namespace KuroAcad
             });
         }
 
-        public static List<Entity> SortBlocksByAttributeList(List<Entity> blocks, Transaction acTrans)
+        internal static List<Entity> SortBlocksByAttributeList(List<Entity> blocks, Transaction acTrans)
         {
             Dictionary<Entity, string> blockSort = new Dictionary<Entity, string>();
             List<string> listAttributes = new List<string>();
@@ -86,7 +86,7 @@ namespace KuroAcad
         }
 
         // Get list of BlockReference by first character of attribute value
-        public static List<Entity> GetBlockAttributes(List<Entity> blocks, Transaction acTrans, char strKey)
+        internal static List<Entity> GetBlockAttributes(List<Entity> blocks, Transaction acTrans, char strKey)
         {
             List<Entity> blByChar = new List<Entity>();
             List<string> attributes = new List<string>();
@@ -117,7 +117,7 @@ namespace KuroAcad
         }
 
         //method to get list first character of attribute value
-        public static List<char> GetListFirstChar(List<Entity> blocks, Transaction acTrans)
+        internal static List<char> GetListFirstChar(List<Entity> blocks, Transaction acTrans)
         {
             List<char> listChar = new List<char>();
             foreach (Entity block in blocks)
@@ -146,7 +146,7 @@ namespace KuroAcad
         }
 
         //method to add data to exist table
-        public static void AddDataToTable(Table acTable, List<Entity> blocks, Transaction acTrans, char strKey)
+        internal static void AddDataToTable(Table acTable, List<Entity> blocks, Transaction acTrans, char strKey)
         {
             //Count List of BlockReference
             int count = blocks.Count;
@@ -220,7 +220,7 @@ namespace KuroAcad
         }
 
         //method to get center point of polyline
-        public static Point3d GetCenterPoint(Polyline pl)
+        internal static Point3d GetCenterPoint(Polyline pl)
         {
             Point3d cenPt = new Point3d();
             Point3d pt = pl.GeometricExtents.MaxPoint;
@@ -230,7 +230,7 @@ namespace KuroAcad
         }
 
         //method to insert a Block
-        public static BlockReference InsertingABlock(Database db, Transaction acTrans, string blockName, Point3d originPt)
+        internal static BlockReference InsertingABlock(Database db, Transaction acTrans, string blockName, Point3d originPt)
         {
             //Open the block table for read
             BlockTable acBlkTbl;
@@ -270,7 +270,7 @@ namespace KuroAcad
         }
 
         //method to copy entitie in the current model space
-        public static void CopyEntities(Database db, Transaction acTrans, Entity ent, Point3d pt)
+        internal static void CopyEntities(Database db, Transaction acTrans, Entity ent, Point3d pt)
         {
             using (Entity entCopy = ent.Id.GetObject(OpenMode.ForRead) as Entity)
             {
@@ -285,6 +285,20 @@ namespace KuroAcad
                 }
             }
 
+        }
+        //method to check existing Layer
+        internal static Boolean IsExistingLayer(Transaction trans, LayerTable ltb, string layerName)
+        {
+            LayerTableRecord Lr;
+            foreach (ObjectId id in ltb)
+            {
+                Lr = trans.GetObject(id, OpenMode.ForRead) as LayerTableRecord;
+                if (Lr.Name == layerName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

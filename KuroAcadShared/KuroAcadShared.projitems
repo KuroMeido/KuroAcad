@@ -9,30 +9,30 @@
     <Import_RootNamespace>KuroAcad</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\CmdPalette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\CmdPalette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdRoad\CmdRoad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\CmdCreateBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdGetTD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTD\CmdSetTD.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdShowAlert\CmdShowAlert.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdShowPalette\CmdShowPalette.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTest\Commands.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKLD\CmdTKLD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKSDD\CmdTKSDD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BlockAtt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBLoadUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\CustomPaletteSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\CustomPaletteSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entry\ExtensionApplication.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entry\KeyGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BuildTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\KuroExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\MyDataCollection.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\LayerColorConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\ObservableObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabView.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\LayerColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\PaletteTabView.xaml.cs">
       <DependentUpon>PaletteTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CmdPalette\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\PaletteTabViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\alertWPF.xaml.cs">
       <DependentUpon>alertWPF.xaml</DependentUpon>
     </Compile>
@@ -47,7 +47,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)CmdPalette\PaletteTabView.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\PaletteTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resources\Styles.xaml">
@@ -70,10 +70,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdShowAlert\MVVM\" />
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTD\" />
     <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\" />
     <Folder Include="$(MSBuildThisFileDirectory)CmdDBLoad\" />
-    <Folder Include="$(MSBuildThisFileDirectory)CmdPalette\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Commands\CmdRoad\" />
   </ItemGroup>
 </Project>

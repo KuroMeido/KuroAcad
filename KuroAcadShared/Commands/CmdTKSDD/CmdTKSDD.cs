@@ -82,6 +82,7 @@ namespace KuroAcad
                 int rowIndex = 2;
                 int inDex = 1;
                 double totalAreaHatch = 0;
+
                 foreach (var kvp in hatchByLayer)
                 {
                     string layerName = kvp.Key;
@@ -90,8 +91,15 @@ namespace KuroAcad
                     foreach (Entity ent in hatchList)
                     {
                         Hatch hatch = (Hatch)ent;
-                        layerArea += hatch.Area / 10000;
-
+                        try
+                        {
+                            layerArea += hatch.Area / 10000;
+                        }
+                        catch
+                        {
+                            //change hatch color
+                            hatch.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 0, 0);
+                        }
                     }
 
                     acTable.Cells[rowIndex, 0].TextString = KuroExtensions.convertToRoman(inDex);
@@ -110,7 +118,14 @@ namespace KuroAcad
                     foreach (Entity ent in hatchList)
                     {
                         Hatch hatch = (Hatch)ent;
-                        layerArea += hatch.Area / 10000;
+                        try
+                        {
+                            layerArea += hatch.Area / 10000;
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     acTable.Cells[rowIndex, 3].TextString = ((layerArea / totalArea) * 100).ToString("F2") + "%";
                     rowIndex++;

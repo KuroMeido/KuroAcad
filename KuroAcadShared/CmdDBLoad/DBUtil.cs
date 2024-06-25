@@ -19,11 +19,5 @@ namespace KuroAcad
                 window.textBlockResult.Text = result;
             }
         }
-        public static SqlConnection GetConnection()
-        {
-            string connStr = Settings1.Default.connstr;
-            SqlConnection conn = new SqlConnection(connStr);
-            return conn;
-        }
     }
 }

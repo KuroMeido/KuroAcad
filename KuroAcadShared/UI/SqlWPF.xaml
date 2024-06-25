@@ -8,7 +8,7 @@
         Background="#181735"
         WindowStyle="None"
         AllowsTransparency="True"
-        Height="340" Width="380">
+        Height="140" Width="380">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,8 +30,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="140"/>
-            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -82,80 +80,15 @@
         <!--HEADER END-->
 
         <!--CONTENT START-->
-        <!--OPTION START-->
-        <GroupBox Grid.Row="1" Header="Option" Margin="10 3" x:Name="groupBox_Option">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-
-            </Grid>
-        </GroupBox>
-        <!--OPTION END-->
-
-        <!--TAGNAME START-->
-        <GroupBox Grid.Row="2" Header="Tag Name" Margin="10 3">
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--TAG NAME-->
-                    <TextBlock Grid.Column="0" Text="Name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
-                    <TextBox Grid.Column="1" Text="TL" 
-                             x:Name="textBoxName"
-                             Width="100" Height="30"  
-                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <!--TAG AREA-->
-                    <TextBlock Grid.Column="2" Text="Area" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
-                    <TextBox Grid.Column="3" Text="DT" 
-                             x:Name="textBoxArea"
-                             Width="100" Height="30" 
-                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <!--TAG MDXD-->
-                    <TextBlock Text="Density" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
-                    <TextBox Grid.Column="1" Text="MD"
-                             x:Name="textBoxDensity"
-                             Width="100" Height="30" 
-                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
-                    <!--TAG TC-->
-                    <TextBlock Grid.Column="2" Text="Floors" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="5"/>
-                    <TextBox Grid.Column="3" Text="TC"
-                             x:Name="textBoxFloors"
-                             Width="100" Height="30" 
-                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"/>
-                    <!--TAG FAR-->
-                    <TextBlock Text="FAR" Foreground="{StaticResource text_white}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Margin="5"/>
-                    <TextBox Grid.Column="1" Text="HS"
-                             x:Name="textBoxFAR"
-                             Width="100" Height="30" 
-                             VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2"/>
-                </Grid>
-            </Grid>
-        </GroupBox>
-        <!--TAGNAME END-->
-
         <!--Status START-->
-        <GroupBox Grid.Row="3" Header="Status" Margin="10 3">
+        <GroupBox Grid.Row="1" Header="Status" Margin="10 3">
             <TextBlock x:Name="textBlockResult" Text="abd..." VerticalAlignment="Center" Margin="10 3"/>
         </GroupBox>
         <!--Status END-->
         <!--CONTENT END-->
-
+        
         <!--BUTTON OK START-->
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="2">
             <Button Click="buttonLoadLine_click"
                  Content="Load Lines to DB" VerticalAlignment="Center" 
                  HorizontalAlignment="Center" Height="30" Width="120" Margin="3" />

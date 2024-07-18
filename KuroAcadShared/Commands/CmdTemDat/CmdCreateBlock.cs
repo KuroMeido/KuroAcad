@@ -7,7 +7,7 @@ namespace KuroAcad
 {
     class CmdCreateBlock
     {
-        [CommandMethod("KuroTemDat")]
+        [CommandMethod("KTemDat")]
         public void KuroTemDat()
         {
             // Get the current database

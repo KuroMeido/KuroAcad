@@ -6,7 +6,7 @@ namespace KuroAcad
 {
     class CmdTKSDD
     {
-        [CommandMethod("KUROTKSDD")]
+        [CommandMethod("KTKSDD")]
         public void KuroTKSDD()
         {
             // Lấy document đang hoạt động

@@ -8,7 +8,7 @@ namespace KuroAcad
 {
     public class CmdTKLD
     {
-        [CommandMethod("KuroTKLD")]
+        [CommandMethod("KTKLD")]
 
         public void KuroTKLD()
         {
@@ -31,6 +31,7 @@ namespace KuroAcad
                     acDoc.Editor.WriteMessage("\nVui lòng chọn đối tượng trước khi thực hiện.");
                     return;
                 }
+
                 // Create Block Reference fitler
                 List<Entity> blRefEntities = new List<Entity>();
                 foreach (SelectedObject so in psr.Value)
@@ -41,6 +42,7 @@ namespace KuroAcad
                         blRefEntities.Add(ent);
                     }
                 }
+
                 //Phân loại Block theo kí tự đầu tiên cuả Attribute Tag "TEN"
                 List<Entity> blSorted = KuroExtensions.SortBlocksByAttributeList(blRefEntities, acTrans);
 
@@ -50,44 +52,50 @@ namespace KuroAcad
                     return;
                 Point3d pt = ppr.Value;
 
-
                 //Create Table
+                #region Create Table
                 Table acTable = new Table();
                 acTable.TableStyle = acDoc.Database.Tablestyle;
                 acTable.Position = pt;
                 acTable.NumRows = 3 ;
                 acTable.NumColumns = 8;
 
-                //Set header
-                acTable.Cells[1, 0].TextString = "STT";
-                acTable.Cells[1, 1].TextString = "KÍ HIỆU LÔ ĐẤT";
-                acTable.Cells[1, 2].TextString = "SỐ LƯỢNG";
-                acTable.Cells[1, 3].TextString = "DIỆN TÍCH MỖI LÔ (ha)";
-                acTable.Cells[1, 4].TextString = "DIỆN TÍCH TỔNG (ha)";
-                acTable.Cells[1, 5].TextString = "MĐXD max";
-                acTable.Cells[1, 6].TextString = "TẦNG CAO max";
-                acTable.Cells[1, 7].TextString = "HSSDĐ ";
+                    //Set header
+                    #region Set header
+                    acTable.Cells[1, 0].TextString = "STT";
+                    acTable.Cells[1, 1].TextString = "KÍ HIỆU LÔ ĐẤT";
+                    acTable.Cells[1, 2].TextString = "SỐ LƯỢNG";
+                    acTable.Cells[1, 3].TextString = "DIỆN TÍCH MỖI LÔ (ha)";
+                    acTable.Cells[1, 4].TextString = "DIỆN TÍCH TỔNG (ha)";
+                    acTable.Cells[1, 5].TextString = "MĐXD max";
+                    acTable.Cells[1, 6].TextString = "TẦNG CAO max";
+                    acTable.Cells[1, 7].TextString = "HSSDĐ ";
+                    #endregion
+
+                    // set title
+                    #region Set title
+                    acTable.Cells[0, 0].SetValue("BẢNG THỐNG KÊ LÔ ĐẤT", ParseOption.ParseOptionNone);
+                    #endregion
+
+                    //set data
+                    #region Set data
+                    //get list of first character of attribute value
+                    List<char> listChar = KuroExtensions.GetListFirstChar(blSorted, acTrans);
+                    foreach (char c in listChar)
+                    {
+                        //get list of block reference by first character of attribute value
+                        List<Entity> blByChar = KuroExtensions.GetBlockAttributes(blSorted, acTrans, c);
+                        //add data to table
+                        KuroExtensions.AddDataToTable(acTable, blByChar, acTrans, c);
+                    }
 
 
-                // set title
-                acTable.Cells[0, 0].SetValue("BẢNG THỐNG KÊ LÔ ĐẤT", ParseOption.ParseOptionNone);
+                    //total area
+                    acTable.InsertRows(acTable.Rows.Count, 1, 1);
+                    acTable.Cells[acTable.Rows.Count -1, 0].TextString = "TỔNG CỘNG";
+                    #endregion
 
-                //set data
-                //get list of first character of attribute value
-                List<char> listChar = KuroExtensions.GetListFirstChar(blSorted, acTrans);
-                foreach (char c in listChar)
-                {
-                    //get list of block reference by first character of attribute value
-                    List<Entity> blByChar = KuroExtensions.GetBlockAttributes(blSorted, acTrans, c);
-                    //add data to table
-                    KuroExtensions.AddDataToTable(acTable, blByChar, acTrans, c);
-                }
-
-
-                //Set total area
-                acTable.InsertRows(acTable.Rows.Count, 1, 1);
-                acTable.Cells[acTable.Rows.Count -1, 0].TextString = "TỔNG CỘNG";
-
+                #endregion
                 // Add table to current space
                 BlockTableRecord btr = (BlockTableRecord)acTrans.GetObject(acDb.CurrentSpaceId, OpenMode.ForWrite);
                 btr.AppendEntity(acTable);

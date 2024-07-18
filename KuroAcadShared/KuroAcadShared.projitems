@@ -9,6 +9,8 @@
     <Import_RootNamespace>KuroAcad</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CmdIntersectionTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CmdTrimRoad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\CmdPalette.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdRoad\CmdRoad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\CmdCreateBlock.cs" />
@@ -17,10 +19,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTest\Commands.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKLD\CmdTKLD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTKSDD\CmdTKSDD.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BlockAtt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdTemDat\BlockAtt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBLoadUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CmdDBLoad\DBUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\CustomPaletteSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConvertToPolyline.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entry\ExtensionApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entry\KeyGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\BuildTable.cs" />

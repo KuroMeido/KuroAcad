@@ -16,7 +16,7 @@ namespace KuroAcad.UI
         /// Palette display command
         /// </summary>
 
-        [CommandMethod("KuroPalette")]
+        [CommandMethod("KPalette")]
         public void ShowPalette()
         {
             if (paletteSet == null)
@@ -29,7 +29,7 @@ namespace KuroAcad.UI
         /// <summary>
         /// Circle drawing Command
         /// </summary>
-        [CommandMethod("KuroCircleWPF")]
+        [CommandMethod("KCircleWPF")]
         public void DrawCircle()
         {
             var doc = Application.DocumentManager.MdiActiveDocument;

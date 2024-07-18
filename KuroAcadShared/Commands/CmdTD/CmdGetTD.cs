@@ -5,7 +5,7 @@ namespace KuroAcad
 {
     class CmdGetTD
     {
-        [CommandMethod("KuroGetTD")]
+        [CommandMethod("KGetTD")]
         public void KuroGetTD()
         {
             // Get active Document and Database

@@ -5,7 +5,7 @@ namespace KuroAcad
 {
     class CmdSetTD
     {
-        [CommandMethod("KuroSetTD")]
+        [CommandMethod("KSetTD")]
         public void KuroSetTD()
         {
             // Get active Document and Database

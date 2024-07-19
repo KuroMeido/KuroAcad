@@ -86,7 +86,6 @@ namespace KuroAcad
             double bulge = pline.GetBulgeAt(index);               // segment bulge
             var plane = new Plane(Point3d.Origin, pline.Normal);  // polyline OCS plane
 
-
             if (bulge == 0.0) // linear segment
             {
                 pline.AddVertexAt(index + 1, point.Convert2d(plane), 0.0, 0.0, 0.0);
@@ -103,9 +102,8 @@ namespace KuroAcad
                 pline.SetBulgeAt(index, Math.Tan(angle1));
             }
         }
-
-
     }
+
     public static class ConvertToPolylineExtensions
     {
         /// <summary>
@@ -129,14 +127,15 @@ namespace KuroAcad
 
             if (curve == null)
                 throw new ArgumentNullException("curve");
-            if (curve is Polyline)
+            else if (curve is Polyline)
             { 
                 pline = (Polyline)curve;
+                return pline;
             }
 
-            if (curve.IsTransactionResident)
+            else if(curve.IsTransactionResident)
                 throw new ArgumentException("curve must be from an OpenCloseTransaction");
-            if (curve is Line || curve is Arc)
+            else if(curve is Line || curve is Arc)
             {
                 try
                 {
@@ -187,9 +186,7 @@ namespace KuroAcad
                     throw;
                 }
             }
-
             return pline;
-
         }
     }
 }

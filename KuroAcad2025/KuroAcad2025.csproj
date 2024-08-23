@@ -11,6 +11,7 @@
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<OutputType>Library</OutputType>
 		<Platforms>AnyCPU;x64</Platforms>
+		<Configurations>Debug;Release;A25</Configurations>
 	</PropertyGroup>
   
 	<ItemGroup>
@@ -25,18 +26,20 @@
 	</ItemGroup>
   
 	<ItemGroup>
-	  <Reference Include="accoremgd">
-	    <HintPath>..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcCoreMgd.dll</HintPath>
-	    <Private>False</Private>
-	  </Reference>
-	  <Reference Include="Acdbmgd">
-	    <HintPath>..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcDbMgd.dll</HintPath>
-	    <Private>False</Private>
-	  </Reference>
-	  <Reference Include="acmgd">
-	    <HintPath>..\..\..\..\Autodesk\ObjectARX_for_AutoCAD_2024_Win_64bit_dlm\inc\AcMgd.dll</HintPath>
-	    <Private>False</Private>
-	  </Reference>
+		<Reference Include="accoremgd">
+			<HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcCoreMgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+
+		<Reference Include="Acdbmgd">
+			<HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcDbMgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+
+		<Reference Include="acmgd">
+			<HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcMgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>
 
 	<!-- Change the paths to the targeted AutoCAD libraries -->

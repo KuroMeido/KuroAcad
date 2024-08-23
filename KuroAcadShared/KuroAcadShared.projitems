@@ -48,10 +48,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\SqlWPF.xaml.cs">
       <DependentUpon>SqlWPF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)VinxDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\PaletteTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -67,9 +69,11 @@
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UI\KuroTLWPF.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UI\SqlWPF.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

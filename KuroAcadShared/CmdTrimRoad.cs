@@ -24,7 +24,7 @@ namespace KuroAcad
             if (psr.Status != PromptStatus.OK) return;
 
             //Start a transaction
-            using (OpenCloseTransaction acTrans = acCurDb.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
             {
                 //Open the block table for read
                 BlockTable acBlkTbl;
@@ -57,13 +57,32 @@ namespace KuroAcad
                         Point3dCollection pts = new Point3dCollection();
                         curve1.IntersectWith(curve2, Intersect.OnBothOperands, pts, IntPtr.Zero, IntPtr.Zero);
 
+                        Polyline pline1 = new Polyline();
+                        Polyline pline2 = new Polyline();
+
+                        if(curve1 is Line || curve1 is Arc)
+                        {
+                            pline1 = curve1.ReplaceWithPolyline(acTrans);
+                        }
+                        else if(curve1 is Polyline)
+                        {
+                            pline1 = curve1 as Polyline;
+                        }
+                        if(curve2 is Line || curve2 is Arc)
+                        {
+                            pline2 = curve2.ReplaceWithPolyline(acTrans);
+                        }
+                        else if(curve2 is Polyline)
+                        {
+                            pline2 = curve2 as Polyline;
+                        }
                         if (pts.Count > 0)
                         {
                             //add vertex to curve
                             foreach (Point3d pt in pts)
                             {
-                                AddVertex(curve1, pt, acTrans);
-                                AddVertex(curve2, pt, acTrans);
+                                AddVertex(pline1, pt, acTrans);
+                                AddVertex(pline2, pt, acTrans);
                             }
                         }
                     }
@@ -73,9 +92,10 @@ namespace KuroAcad
                 acTrans.Commit();
             }
         }
-        internal static void AddVertex(Curve curve, Point3d point, OpenCloseTransaction trans)
+
+        internal static void AddVertex(Polyline pline, Point3d point, Transaction trans)
         {
-            Polyline pline = curve.ReplaceWithPolyline(trans);
+
             point = pline.GetClosestPointTo(point, false);        // point on curve
             double parameter = pline.GetParameterAtPoint(point);  // parameter at point
             int index = (int)parameter;                           // segment index
@@ -111,7 +131,7 @@ namespace KuroAcad
         /// with an equivalent polyline
         /// </summary>
 
-        public static Polyline ReplaceWithPolyline(this Curve curve, OpenCloseTransaction trans)
+        public static Polyline ReplaceWithPolyline(this Curve curve, Transaction trans)
         {
             return Convert(curve, trans);
         }
@@ -121,20 +141,12 @@ namespace KuroAcad
             return Convert(curve);
         }
 
-        static Polyline Convert(Curve curve, OpenCloseTransaction trans = null)
+        static Polyline Convert(Curve curve, Transaction trans = null)
         {
             Polyline pline = new Polyline(1);
 
             if (curve == null)
-                throw new ArgumentNullException("curve");
-            else if (curve is Polyline)
-            { 
-                pline = (Polyline)curve;
-                return pline;
-            }
-
-            else if(curve.IsTransactionResident)
-                throw new ArgumentException("curve must be from an OpenCloseTransaction");
+                throw new ArgumentNullException(nameof(curve));
             else if(curve is Line || curve is Arc)
             {
                 try

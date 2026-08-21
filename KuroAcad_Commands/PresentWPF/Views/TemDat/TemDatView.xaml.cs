@@ -6,12 +6,12 @@ namespace KuroAcad.UI
 {
     public partial class TemDatView : Window
     {
-        private readonly TemDatViewModel viewModel;
+        private readonly TemDatVM viewModel;
 
         public TemDatView()
         {
             InitializeComponent();
-            viewModel = new TemDatViewModel();
+            viewModel = new TemDatVM();
             viewModel.RequestClose += OnRequestClose;
             DataContext = viewModel;
         }

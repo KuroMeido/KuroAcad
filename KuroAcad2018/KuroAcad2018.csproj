@@ -11,6 +11,7 @@
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<OutputType>Library</OutputType>
 		<Platforms>AnyCPU;x64</Platforms>
+		<Configurations>Debug;Release;2018</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

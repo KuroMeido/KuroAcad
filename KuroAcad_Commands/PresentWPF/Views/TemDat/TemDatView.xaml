@@ -8,7 +8,7 @@
         AllowsTransparency="True"
         Height="440"
         Width="380"
-        Title="TemDat">
+        Title="{Binding ToolName}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

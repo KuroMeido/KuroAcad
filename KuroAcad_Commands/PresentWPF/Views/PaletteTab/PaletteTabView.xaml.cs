@@ -1,8 +1,8 @@
-﻿using UserControl = System.Windows.Controls.UserControl;
+﻿using Window = System.Windows.Window;
 
 namespace KuroAcad.UI
 {
-    public partial class PaletteTabView : UserControl
+    public partial class PaletteTabView : Window
     {
         public PaletteTabView()
         {

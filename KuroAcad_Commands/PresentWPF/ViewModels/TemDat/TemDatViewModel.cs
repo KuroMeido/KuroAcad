@@ -1,10 +1,12 @@
 using System;
 using KuroAcad.ModelItems;
 using System.Windows.Input;
+using PropertyChanged;
 
 namespace KuroAcad.UI
 {
-    class TemDatViewModel : ObservableObject
+    [AddINotifyPropertyChangedInterface]
+    class TemDatVM : ObservableObject
     {
         private int selectedOption;
         private string tagName;
@@ -21,7 +23,7 @@ namespace KuroAcad.UI
 
         public event Action<bool> RequestClose;
 
-        public TemDatViewModel()
+        public TemDatVM()
         {
             selectedOption = 2;
             tagName = "TL";

@@ -1,9 +1,6 @@
-﻿
-using Autodesk.AutoCAD.ApplicationServices;
-
-namespace KuroAcad
+namespace KuroAcad.Helper
 {
-    class BuildTable
+    public static class BuildTableHelper
     {
         //method to add points data to table
         public static void AddPointsData(Table acTable, List<Point3d> pts, int numAfterDot, List<Line> lines)
@@ -13,12 +10,14 @@ namespace KuroAcad
             {
                 i++;
                 acTable.InsertRows(i, 1, 1);
-                acTable.Cells[i, 0].TextString = (i-3).ToString();
+                acTable.Cells[i, 0].TextString = (i - 3).ToString();
                 acTable.Cells[i, 1].TextString = pt.X.ToString("F" + numAfterDot);
                 acTable.Cells[i, 2].TextString = pt.Y.ToString("F" + numAfterDot);
             }
+
             acTable.Cells[i, 0].TextString = "1";
             i = 3;
+
             foreach (Line line in lines)
             {
                 i++;
@@ -28,7 +27,7 @@ namespace KuroAcad
 
         //method to lookup value in table
         public static int LookupValueInTable(Table acTable, string strKey)
-        {   
+        {
             int k = 0;
             for (int j = 0; j < acTable.Rows.Count; j++)
             {
@@ -39,19 +38,22 @@ namespace KuroAcad
                     {
                         continue;
                     }
-                    string str = cellValue.ToString();
 
+                    string str = cellValue.ToString();
                     int lastSemicolonIndex = str.LastIndexOf(';');
                     string output = str.Substring(lastSemicolonIndex + 1);
+
                     if (output == strKey)
                     {
                         k = i;
                     }
                 }
             }
+
             int columnIndex = k;
-            //find until the end of table
             return columnIndex;
         }
+
+
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Autodesk.AutoCAD.Windows.Data;
+﻿using Autodesk.AutoCAD.Windows.Data;
+using System.ComponentModel;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace KuroAcad.UI
@@ -97,6 +97,6 @@ namespace KuroAcad.UI
             if (pdr.Status == PromptStatus.OK)
                 TextRadius = pdr.Value.ToString();
         }
-    
+
     }
 }

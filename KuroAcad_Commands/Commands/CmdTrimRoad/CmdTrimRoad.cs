@@ -1,6 +1,4 @@
-﻿using Autodesk.AutoCAD.Runtime;
-
-[assembly: CommandClass(typeof(KuroAcad.CmdTrimRoad))]
+﻿[assembly: CommandClass(typeof(KuroAcad.CmdTrimRoad))]
 
 namespace KuroAcad
 {

@@ -22,7 +22,7 @@
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 		<AcadVersion>2025</AcadVersion>
 		<TargetFramework>net8.0-windows</TargetFramework>
-		<ObjectArxPath>C:\Autodesk\Autodesk_ObjectARX_2025_Win_64_and_32_Bit\inc</ObjectArxPath>
+		<ObjectArxPath>C:\Autodesk\CDROM1\inc</ObjectArxPath>
 	</PropertyGroup>
 
 	<!-- AutoCAD version selection -->
@@ -71,7 +71,7 @@
 	<PropertyGroup Condition="$(Configuration.Contains('ACAD2025'))">
 		<AcadVersion>2025</AcadVersion>
 		<TargetFramework>net8.0-windows</TargetFramework>
-		<ObjectArxPath>C:\Autodesk\Autodesk_ObjectARX_2025_Win_64_and_32_Bit\inc</ObjectArxPath>
+		<ObjectArxPath>C:\Autodesk\CDROM1\inc</ObjectArxPath>
 	</PropertyGroup>
 
 	<!-- Fallback if no matching configuration -->
@@ -99,6 +99,11 @@
 
 		<Reference Include="AcMgd">
 			<HintPath>$(ObjectArxPath)\AcMgd.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="AdWindows">
+			<HintPath>$(ObjectArxPath)\AdWindows.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>

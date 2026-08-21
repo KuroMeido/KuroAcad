@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autodesk.AutoCAD.Windows;
-using KuroAcad.UI;
+﻿using Autodesk.AutoCAD.Windows;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace KuroAcad.UI

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace KuroAcad.UI
 {
-    class RelayCommand :ICommand
+    class RelayCommand : ICommand
     {
         readonly Action<object> execute;
         readonly Predicate<object> canExecute;

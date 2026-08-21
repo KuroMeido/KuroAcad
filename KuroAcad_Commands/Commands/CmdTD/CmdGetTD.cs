@@ -1,4 +1,5 @@
 ﻿using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using KuroAcad.Helper;
 
 [assembly: CommandClass(typeof(KuroAcad.CmdGetTD))]
 namespace KuroAcad
@@ -81,7 +82,7 @@ namespace KuroAcad
                 acTable.Cells[3, 2].TextString = "Y";
 
                 //Set data
-                BuildTable.AddPointsData(acTable, pts, pir.Value, lines);
+                BuildTableHelper.AddPointsData(acTable, pts, pir.Value, lines);
 
                 //Add table to model space
                 BlockTableRecord acBlkTblRec;

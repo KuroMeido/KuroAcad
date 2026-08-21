@@ -1,7 +1,6 @@
-using System;
 using KuroAcad.ModelItems;
-using System.Windows.Input;
 using PropertyChanged;
+using System.Windows.Input;
 
 namespace KuroAcad.UI
 {

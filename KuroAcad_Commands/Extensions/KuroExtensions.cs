@@ -152,7 +152,7 @@ namespace KuroAcad
             int count = blocks.Count;
             double totalArea = 0;
             //Add row for table
-            acTable.InsertRows(acTable.Rows.Count, 1, count +1);
+            acTable.InsertRows(acTable.Rows.Count, 1, count + 1);
 
             // set data for each block
             int rowIndex = acTable.Rows.Count - count - 1;
@@ -211,12 +211,12 @@ namespace KuroAcad
             }
 
             // set header of list blocks
-            acTable.Cells[acTable.Rows.Count - count -2, 1].TextString = strKey.ToString();
-            acTable.Cells[acTable.Rows.Count - count -2, 2].TextString = count.ToString();
+            acTable.Cells[acTable.Rows.Count - count - 2, 1].TextString = strKey.ToString();
+            acTable.Cells[acTable.Rows.Count - count - 2, 2].TextString = count.ToString();
             acTable.Cells[acTable.Rows.Count - count - 2, 4].TextString = totalArea.ToString("F2");
             acTable.Cells[acTable.Rows.Count - count - 2, 5].TextString = mDXDmax.ToString();
             acTable.Cells[acTable.Rows.Count - count - 2, 6].TextString = tangCaoMax.ToString();
-            acTable.Cells[acTable.Rows.Count - count - 2, 7].TextString = (mDXDmax / 100 * tangCaoMax).ToString("F2");  
+            acTable.Cells[acTable.Rows.Count - count - 2, 7].TextString = (mDXDmax / 100 * tangCaoMax).ToString("F2");
         }
 
         //method to get center point of polyline

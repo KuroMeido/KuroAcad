@@ -1,4 +1,5 @@
 ﻿using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using KuroAcad.Helper;
 
 [assembly: CommandClass(typeof(KuroAcad.CmdSetTD))]
 namespace KuroAcad
@@ -30,9 +31,9 @@ namespace KuroAcad
 
                 Table acTable = acTrans.GetObject(psr.Value[0].ObjectId, OpenMode.ForRead) as Table;
 
-                int XcolumnIndex = BuildTable.LookupValueInTable(acTable, "X");
+                int XcolumnIndex = BuildTableHelper.LookupValueInTable(acTable, "X");
 
-                int YcolumnIndex = BuildTable.LookupValueInTable(acTable, "Y");
+                int YcolumnIndex = BuildTableHelper.LookupValueInTable(acTable, "Y");
 
                 //Get list value from XY column
                 List<Point2d> pts = new List<Point2d>();

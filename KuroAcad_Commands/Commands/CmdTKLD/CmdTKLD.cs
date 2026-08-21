@@ -57,43 +57,43 @@ namespace KuroAcad
                 Table acTable = new Table();
                 acTable.TableStyle = acDoc.Database.Tablestyle;
                 acTable.Position = pt;
-                acTable.NumRows = 3 ;
+                acTable.NumRows = 3;
                 acTable.NumColumns = 8;
 
-                    //Set header
-                    #region Set header
-                    acTable.Cells[1, 0].TextString = "STT";
-                    acTable.Cells[1, 1].TextString = "KÍ HIỆU LÔ ĐẤT";
-                    acTable.Cells[1, 2].TextString = "SỐ LƯỢNG";
-                    acTable.Cells[1, 3].TextString = "DIỆN TÍCH MỖI LÔ (ha)";
-                    acTable.Cells[1, 4].TextString = "DIỆN TÍCH TỔNG (ha)";
-                    acTable.Cells[1, 5].TextString = "MĐXD max";
-                    acTable.Cells[1, 6].TextString = "TẦNG CAO max";
-                    acTable.Cells[1, 7].TextString = "HSSDĐ ";
-                    #endregion
+                //Set header
+                #region Set header
+                acTable.Cells[1, 0].TextString = "STT";
+                acTable.Cells[1, 1].TextString = "KÍ HIỆU LÔ ĐẤT";
+                acTable.Cells[1, 2].TextString = "SỐ LƯỢNG";
+                acTable.Cells[1, 3].TextString = "DIỆN TÍCH MỖI LÔ (ha)";
+                acTable.Cells[1, 4].TextString = "DIỆN TÍCH TỔNG (ha)";
+                acTable.Cells[1, 5].TextString = "MĐXD max";
+                acTable.Cells[1, 6].TextString = "TẦNG CAO max";
+                acTable.Cells[1, 7].TextString = "HSSDĐ ";
+                #endregion
 
-                    // set title
-                    #region Set title
-                    acTable.Cells[0, 0].SetValue("BẢNG THỐNG KÊ LÔ ĐẤT", ParseOption.ParseOptionNone);
-                    #endregion
+                // set title
+                #region Set title
+                acTable.Cells[0, 0].SetValue("BẢNG THỐNG KÊ LÔ ĐẤT", ParseOption.ParseOptionNone);
+                #endregion
 
-                    //set data
-                    #region Set data
-                    //get list of first character of attribute value
-                    List<char> listChar = KuroExtensions.GetListFirstChar(blSorted, acTrans);
-                    foreach (char c in listChar)
-                    {
-                        //get list of block reference by first character of attribute value
-                        List<Entity> blByChar = KuroExtensions.GetBlockAttributes(blSorted, acTrans, c);
-                        //add data to table
-                        KuroExtensions.AddDataToTable(acTable, blByChar, acTrans, c);
-                    }
+                //set data
+                #region Set data
+                //get list of first character of attribute value
+                List<char> listChar = KuroExtensions.GetListFirstChar(blSorted, acTrans);
+                foreach (char c in listChar)
+                {
+                    //get list of block reference by first character of attribute value
+                    List<Entity> blByChar = KuroExtensions.GetBlockAttributes(blSorted, acTrans, c);
+                    //add data to table
+                    KuroExtensions.AddDataToTable(acTable, blByChar, acTrans, c);
+                }
 
 
-                    //total area
-                    acTable.InsertRows(acTable.Rows.Count, 1, 1);
-                    acTable.Cells[acTable.Rows.Count -1, 0].TextString = "TỔNG CỘNG";
-                    #endregion
+                //total area
+                acTable.InsertRows(acTable.Rows.Count, 1, 1);
+                acTable.Cells[acTable.Rows.Count - 1, 0].TextString = "TỔNG CỘNG";
+                #endregion
 
                 #endregion
                 // Add table to current space

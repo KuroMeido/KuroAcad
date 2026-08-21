@@ -1,6 +1,5 @@
-﻿using System;
+﻿using KuroAcad.ModelItems;
 using System.Windows;
-using KuroAcad.ModelItems;
 
 namespace KuroAcad.UI
 {

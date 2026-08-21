@@ -1,5 +1,4 @@
 ﻿using KuroAcad;
-using KuroAcad.ModelItems;
 using KuroAcad.UI;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -25,15 +24,12 @@ public class TemDatUtil
         string tagFAR = "";
 
         string valueName = "";
-        string valueArea = "";
         string valueDensity = "";
         string valueFloors = "";
         string valueFAR = "";
 
         int tagCount = 2;
         int polyIndex = 0;
-
-        double circleRadius = 3;
         #endregion
 
         // Show Dialog

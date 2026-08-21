@@ -6,39 +6,39 @@ namespace KuroAcad
 {
     internal class ExtensionApplication : IExtensionApplication
     {
+        private const int MaxRibbonRetryCount = 100;
+        private int ribbonRetryCount;
+        private bool ribbonRegistered;
+        private bool startupMessageShown;
+
         public void Initialize()
         {
-            if (!KeyGenerator.IsRightComputer("18DBE8E0"))
-            {
-                Application.ShowAlertDialog("The key is not right");
-                //not load the application
-                Application.Quit();
-            }
-            if (KeyGenerator.IsExpiredActive())
-            {
-                Application.ShowAlertDialog("The key is out of date");
-                //not load the application
-                Application.Quit();
-            }
-            else
-            {
-                Application.Idle += OnIdle;
-            }
+            System.Windows.Application.ResourceAssembly ??= typeof(ExtensionApplication).Assembly;
+            Application.Idle += OnIdle;
         }
+
         private void OnIdle(object? sender, EventArgs e)
         {
+            if (!ribbonRegistered && ribbonRetryCount < MaxRibbonRetryCount)
+            {
+                ribbonRegistered = KuroRibbon.TryCreate();
+                ribbonRetryCount++;
+            }
+
             var doc = Application.DocumentManager.MdiActiveDocument;
-            if (doc != null)
+            if (!startupMessageShown && doc != null)
+            {
+                doc.Editor.WriteMessage("\nKuroAcad loaded.\n");
+                startupMessageShown = true;
+            }
+
+            if (startupMessageShown && (ribbonRegistered || ribbonRetryCount >= MaxRibbonRetryCount))
             {
                 Application.Idle -= OnIdle;
-                doc.Editor.WriteMessage("\nKuroAcad loaded.\n");
             }
         }
 
         public void Terminate()
         { }
-
-
     }
-
 }

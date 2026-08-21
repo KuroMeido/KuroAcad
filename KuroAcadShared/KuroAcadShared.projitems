@@ -48,7 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\SqlWPF.xaml.cs">
       <DependentUpon>SqlWPF.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)VinxDemo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KuroDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Commands\CmdPalette\PaletteTabView.xaml">

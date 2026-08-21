@@ -92,7 +92,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		KuroAcadShared\KuroAcadShared.projitems*{2e02650e-3bd7-4ac1-a647-85b3ab5fb72a}*SharedItemsImports = 5
-		KuroAcadShared\KuroAcadShared.projitems*{6827ef65-321f-456f-b862-f42683de8961}*SharedItemsImports = 4
 		KuroAcadShared\KuroAcadShared.projitems*{cd0210c4-92a6-4e69-9ac5-1f6ab468cec9}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

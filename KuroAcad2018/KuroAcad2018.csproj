@@ -23,17 +23,17 @@
 
   <ItemGroup>
     <Reference Include="accoremgd">
-      <HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcCoreMgd.dll</HintPath>
+      <HintPath>C:\Autodesk\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcCoreMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
 	  
     <Reference Include="Acdbmgd">
-      <HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcDbMgd.dll</HintPath>
+      <HintPath>C:\Autodesk\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
 	  
     <Reference Include="acmgd">
-      <HintPath>..\..\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcMgd.dll</HintPath>
+      <HintPath>C:\Autodesk\Autodesk_ObjectARX_2018_Win_64_and_32_Bit\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

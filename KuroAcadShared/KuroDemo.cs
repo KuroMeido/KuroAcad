@@ -1,6 +1,6 @@
 ﻿namespace KuroAcad
 {
-    internal class VinxDemo
+    internal class KuroDemo
     {
         internal int ChieuDai { get; set; }
         internal int ChieuRong { get; set; }
@@ -8,11 +8,11 @@
         internal double KQ_DienTich;
         internal double KQ_ChuVi;
 
-        internal VinxDemo()
+        internal KuroDemo()
         {
         }
 
-        internal VinxDemo(int Dai, int Rong)
+        internal KuroDemo(int Dai, int Rong)
         {
             this.ChieuDai = Dai;
             this.ChieuRong = Rong;

@@ -175,9 +175,9 @@ Command: KTKLD
 
 ### Key Classes
 
-**VinxDemo** - Basic geometric calculations
+**KuroDemo** - Basic geometric calculations
 ```csharp
-VinxDemo demo = new VinxDemo(100, 50);  // Length, Width
+KuroDemo demo = new KuroDemo(100, 50);  // Length, Width
 demo.TinhToan();                        // Calculate
 // Results: KQ_DienTich (Area), KQ_ChuVi (Perimeter)
 ```

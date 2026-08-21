@@ -1,6 +1,6 @@
 ﻿namespace KuroAcad
 {
-    internal class BlockAtt
+    internal class TemDatBlockAtt
     {
         //method to insert block with attribute
         public void InsertBlockAtt(string blockName, int attTag, Point3d insertPoint, Database acCurdb)

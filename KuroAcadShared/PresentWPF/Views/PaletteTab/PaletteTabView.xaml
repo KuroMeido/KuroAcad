@@ -1,0 +1,97 @@
+﻿<Window x:Class="KuroAcad.UI.PaletteTabView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        d:DesignHeight="140"
+        d:DesignWidth="250"
+        Height="140"
+        Width="250"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Title}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Lib/WPFStyles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="58" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Margin="3" VerticalAlignment="Center">Layer :</Label>
+            <ComboBox x:Name="cbxLayer"
+                      Grid.Column="1"
+                      Margin="5,15,10,5"
+                      HorizontalAlignment="Stretch"
+                      Style="{StaticResource ComboBoxStyle}"
+                      ItemsSource="{Binding Layers}"
+                      SelectedItem="{Binding Layer}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Column="0"
+                                       Margin="3"
+                                       VerticalAlignment="Stretch"
+                                       Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
+                                       Stroke="Black"
+                                       StrokeThickness="0.5" />
+
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="58" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Margin="3" VerticalAlignment="Center">Radius :</Label>
+            <TextBox Grid.Column="1"
+                     Margin="5"
+                     Style="{StaticResource TextBoxStyle}"
+                     HorizontalAlignment="Stretch"
+                     Text="{Binding TextRadius, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Grid.Column="2"
+                    Margin="5,5,10,5"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="    >    "
+                    Command="{Binding GetRadiusCommand}" />
+        </Grid>
+
+        <Button Grid.Row="2"
+                Margin="5,15,5,5"
+                Content="OK"
+                Height="24"
+                Width="80"
+                Style="{StaticResource CyanRoundedButtonStyle}"
+                Command="{Binding DrawCircleCommand}" />
+    </Grid>
+</Window>

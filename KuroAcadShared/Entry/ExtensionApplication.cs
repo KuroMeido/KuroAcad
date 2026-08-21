@@ -24,11 +24,6 @@ namespace KuroAcad
             {
                 Application.Idle += OnIdle;
             }
-            //VinxDemo vi = new VinxDemo(50, 100);
-            //vi.VinxDemoMethod();
-            //vi.TinhToan();
-            //vi.Xulynoidung("a","b");
-            //double chuvi = vi.KQ_ChuVi;
         }
         private void OnIdle(object? sender, EventArgs e)
         {

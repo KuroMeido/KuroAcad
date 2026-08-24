@@ -7,64 +7,99 @@ namespace KuroAcad
     {
         internal static void TrimRoad()
         {
-            var acDoc = Application.DocumentManager.MdiActiveDocument;
-            var acCurDb = acDoc.Database;
+            // Get current AutoCAD document and database
+            var document = Application.DocumentManager.MdiActiveDocument;
+            var database = document.Database;
+            var editor = document.Editor;
 
-            var listCur = new List<Curve>();
-            var pso = new PromptSelectionOptions
+            // Ask user to select curves to trim/split at intersections
+            var selectionOptions = new PromptSelectionOptions
             {
-                MessageForAdding = "\nSelect Polyline to trim: ",
+                MessageForAdding = "\nSelect polylines to trim: ",
                 SingleOnly = false
             };
 
-            var psr = acDoc.Editor.GetSelection(pso);
-            if (psr.Status != PromptStatus.OK)
+            var selectionResult = editor.GetSelection(selectionOptions);
+            if (selectionResult.Status != PromptStatus.OK)
             {
                 return;
             }
 
-            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            using (var transaction = database.TransactionManager.StartTransaction())
             {
-                foreach (SelectedObject selectedObject in psr.Value)
+                // Collect all selected curve entities
+                var curves = GetSelectedCurves(selectionResult, transaction);
+
+                // Find intersections between each pair of curves
+                for (int i = 0; i < curves.Count; i++)
                 {
-                    var ent = acTrans.GetObject(selectedObject.ObjectId, OpenMode.ForRead) as Entity;
-                    if (ent is Curve curve)
+                    for (int j = i + 1; j < curves.Count; j++)
                     {
-                        listCur.Add(curve);
+                        ProcessCurveIntersection(curves[i], curves[j], transaction);
                     }
                 }
 
-                for (int i = 0; i < listCur.Count; i++)
-                {
-                    for (int j = i + 1; j < listCur.Count; j++)
-                    {
-                        var curve1 = listCur[i];
-                        var curve2 = listCur[j];
-
-                        var pts = new Point3dCollection();
-                        curve1.IntersectWith(curve2, Intersect.OnBothOperands, pts, IntPtr.Zero, IntPtr.Zero);
-
-                        var pline1 = GetPolyline(curve1, acTrans);
-                        var pline2 = GetPolyline(curve2, acTrans);
-
-                        if (pline1 == null || pline2 == null || pts.Count == 0)
-                        {
-                            continue;
-                        }
-
-                        foreach (Point3d pt in pts)
-                        {
-                            AddVertex(pline1, pt);
-                            AddVertex(pline2, pt);
-                        }
-                    }
-                }
-
-                acTrans.Commit();
+                transaction.Commit();
             }
         }
 
-        private static Polyline GetPolyline(Curve curve, Transaction trans)
+        /// <summary>
+        /// Extracts curve entities from the selected objects.
+        /// </summary>
+        private static List<Curve> GetSelectedCurves(PromptSelectionResult selectionResult, Transaction transaction)
+        {
+            var curves = new List<Curve>();
+
+            foreach (SelectedObject selectedObject in selectionResult.Value)
+            {
+                if (selectedObject == null)
+                {
+                    continue;
+                }
+
+                var entity = transaction.GetObject(selectedObject.ObjectId, OpenMode.ForRead) as Entity;
+                if (entity is Curve curve)
+                {
+                    curves.Add(curve);
+                }
+            }
+
+            return curves;
+        }
+
+        /// <summary>
+        /// Finds intersection points between two curves and adds vertices at those points.
+        /// </summary>
+        private static void ProcessCurveIntersection(Curve curve1, Curve curve2, Transaction transaction)
+        {
+            var polyline1 = GetOrCreatePolyline(curve1, transaction);
+            var polyline2 = GetOrCreatePolyline(curve2, transaction);
+
+            if (polyline1 == null || polyline2 == null)
+            {
+                return;
+            }
+
+            var intersectionPoints = new Point3dCollection();
+            curve1.IntersectWith(curve2, Intersect.OnBothOperands, intersectionPoints, IntPtr.Zero, IntPtr.Zero);
+
+            if (intersectionPoints.Count == 0)
+            {
+                return;
+            }
+
+            foreach (Point3d point in intersectionPoints)
+            {
+                AddVertexAtPoint(polyline1, point);
+                AddVertexAtPoint(polyline2, point);
+            }
+        }
+
+        /// <summary>
+        /// Returns a polyline from the given curve.
+        /// If the curve is a line or arc, it is converted to a polyline.
+        /// </summary>
+        private static Polyline GetOrCreatePolyline(Curve curve, Transaction transaction)
         {
             if (curve is Polyline polyline)
             {
@@ -73,41 +108,50 @@ namespace KuroAcad
 
             if (curve is Line || curve is Arc)
             {
-                return curve.ReplaceWithPolyline(trans);
+                return curve.ReplaceWithPolyline(transaction);
             }
 
             return null;
         }
 
-        internal static void AddVertex(Polyline pline, Point3d point)
+        /// <summary>
+        /// Adds a vertex to the polyline at the specified point if the point is not already a vertex.
+        /// Handles both straight and arc segments.
+        /// </summary>
+        internal static void AddVertexAtPoint(Polyline polyline, Point3d point)
         {
-            point = pline.GetClosestPointTo(point, false);
-            double parameter = pline.GetParameterAtPoint(point);
-            int index = (int)parameter;
+            // Get the closest point on the polyline
+            point = polyline.GetClosestPointTo(point, false);
 
-            if (parameter == index)
+            // Get curve parameter at the point
+            double parameter = polyline.GetParameterAtPoint(point);
+            int segmentIndex = (int)parameter;
+
+            // If parameter is an integer, the point is already on an existing vertex
+            if (parameter == segmentIndex)
             {
                 return;
             }
 
-            double bulge = pline.GetBulgeAt(index);
-            var plane = new Plane(Point3d.Origin, pline.Normal);
+            double bulge = polyline.GetBulgeAt(segmentIndex);
+            var plane = new Plane(Point3d.Origin, polyline.Normal);
+            var point2d = point.Convert2d(plane);
 
+            // Straight segment
             if (bulge == 0.0)
             {
-                pline.AddVertexAt(index + 1, point.Convert2d(plane), 0.0, 0.0, 0.0);
+                polyline.AddVertexAt(segmentIndex + 1, point2d, 0.0, 0.0, 0.0);
+                return;
             }
-            else
-            {
-                double angle = Math.Atan(bulge);
-                double angle1 = angle * (parameter - index);
-                double angle2 = angle - angle1;
 
-                pline.AddVertexAt(index + 1, point.Convert2d(plane), Math.Tan(angle2), 0.0, 0.0);
-                pline.SetBulgeAt(index, Math.Tan(angle1));
-            }
+            // Arc segment:
+            // Split the arc into two parts by recalculating bulge values
+            double angle = Math.Atan(bulge);
+            double firstArcAngle = angle * (parameter - segmentIndex);
+            double secondArcAngle = angle - firstArcAngle;
+
+            polyline.AddVertexAt(segmentIndex + 1, point2d, Math.Tan(secondArcAngle), 0.0, 0.0);
+            polyline.SetBulgeAt(segmentIndex, Math.Tan(firstArcAngle));
         }
     }
-
-
 }

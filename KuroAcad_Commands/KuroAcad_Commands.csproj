@@ -176,4 +176,8 @@
 		<Folder Include="Resources\" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Resource Include="Resources\icons8-urban-64.png" />
+	</ItemGroup>
+
 </Project>

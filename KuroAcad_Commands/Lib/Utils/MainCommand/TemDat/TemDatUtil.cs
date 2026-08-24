@@ -1,4 +1,5 @@
 ﻿using KuroAcad;
+using KuroAcad.Helper;
 using KuroAcad.UI;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -164,7 +165,7 @@ public class TemDatUtil
             foreach (Polyline pl in pls)
             {
                 //Get center point of polyline
-                Point3d cenPt = KuroExtensions.GetCenterPoint(pl);
+                Point3d cenPt = GeometryHelper.GetCenterPoint(pl);
 
                 //Get area of polyline
                 double area = pl.Area;

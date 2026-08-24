@@ -219,16 +219,6 @@ namespace KuroAcad
             acTable.Cells[acTable.Rows.Count - count - 2, 7].TextString = (mDXDmax / 100 * tangCaoMax).ToString("F2");
         }
 
-        //method to get center point of polyline
-        internal static Point3d GetCenterPoint(Polyline pl)
-        {
-            Point3d cenPt = new Point3d();
-            Point3d pt = pl.GeometricExtents.MaxPoint;
-            cenPt = new Point3d((pl.GeometricExtents.MinPoint.X + pl.GeometricExtents.MaxPoint.X) / 2,
-                                (pl.GeometricExtents.MinPoint.Y + pl.GeometricExtents.MaxPoint.Y) / 2, 0);
-            return cenPt;
-        }
-
         //method to insert a Block
         internal static BlockReference InsertingABlock(Database db, Transaction acTrans, string blockName, Point3d originPt)
         {

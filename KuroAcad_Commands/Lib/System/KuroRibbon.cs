@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Autodesk.Windows;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
@@ -9,31 +11,55 @@ namespace KuroAcad
     {
         private const string RibbonTabId = "KUROACAD_TAB";
         private const string RibbonTabTitle = "KuroAcad";
-        private const string RibbonPanelTitle = "Main";
 
-        internal static bool TryCreate()
+        public static void CreateMyRibbon()
         {
-            var ribbon = ComponentManager.Ribbon;
-            if (ribbon == null)
+            if (ComponentManager.Ribbon == null)
             {
-                return false;
+                ComponentManager.ItemInitialized += ComponentManager_ItemInitialized;
+            }
+            else
+            {
+                CreateRibbon();
+            }
+        }
+
+        private static void ComponentManager_ItemInitialized(object? sender, RibbonItemEventArgs e)
+        {
+            if (ComponentManager.Ribbon != null)
+            {
+                CreateRibbon();
+                ComponentManager.ItemInitialized -= ComponentManager_ItemInitialized;
+            }
+        }
+
+        private static void CreateRibbon()
+        {
+            var ribbonControl = ComponentManager.Ribbon;
+            if (ribbonControl == null)
+            {
+                return;
             }
 
-            var existingTab = ribbon.Tabs.FirstOrDefault(t => t.Id == RibbonTabId);
+            var existingTab = ribbonControl.Tabs
+                .FirstOrDefault(t => t.Id == RibbonTabId || t.Title == RibbonTabTitle);
+
             if (existingTab != null)
             {
-                return true;
+                ribbonControl.Tabs.Remove(existingTab);
             }
 
-            var tab = new RibbonTab
+            var tabNew = new RibbonTab
             {
-                Id = RibbonTabId,
-                Title = RibbonTabTitle
+                Title = RibbonTabTitle,
+                Id = RibbonTabId
             };
+
+            ribbonControl.Tabs.Add(tabNew);
 
             var panelSource = new RibbonPanelSource
             {
-                Title = RibbonPanelTitle
+                Title = "Main"
             };
 
             var panel = new RibbonPanel
@@ -41,26 +67,50 @@ namespace KuroAcad
                 Source = panelSource
             };
 
-            panelSource.Items.Add(CreateButton("KUROACAD_BTN_KTEMDAT", "Tem Dat", "KTemDat"));
+            tabNew.Panels.Add(panel);
 
-            tab.Panels.Add(panel);
-            ribbon.Tabs.Add(tab);
-
-            return true;
+            foreach (var item in KuroRibbonButtons.MainPanel)
+            {
+                panelSource.Items.Add(CreateButton(item.Id, item.Text, item.CommandName, item.IconPath));
+            }
         }
 
-        private static RibbonButton CreateButton(string id, string text, string commandName)
+        private static RibbonButton CreateButton(string id, string text, string commandName, string iconPath)
         {
+            var icon = LoadImage(iconPath);
+
             return new RibbonButton
             {
                 Id = id,
                 Text = text,
                 ShowText = true,
-                ShowImage = false,
+                ShowImage = icon != null,
+                Image = icon,
+                LargeImage = icon,
                 Size = RibbonItemSize.Large,
+                Orientation = System.Windows.Controls.Orientation.Vertical,
                 CommandHandler = new RibbonCommandHandler(),
-                CommandParameter = commandName,
+                CommandParameter = commandName
             };
+        }
+
+        private static ImageSource? LoadImage(string iconPath)
+        {
+            if (string.IsNullOrWhiteSpace(iconPath))
+            {
+                return null;
+            }
+
+            try
+            {
+                string assemblyName = typeof(KuroRibbon).Assembly.GetName().Name;
+                var uri = new Uri($"pack://application:,,,/{assemblyName};component/{iconPath}", UriKind.Absolute);
+                return new BitmapImage(uri);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private sealed class RibbonCommandHandler : ICommand
@@ -74,20 +124,32 @@ namespace KuroAcad
 
             public void Execute(object? parameter)
             {
-                if (parameter is not string command || string.IsNullOrWhiteSpace(command))
-                {
-                    return;
-                }
-
                 var doc = Application.DocumentManager.MdiActiveDocument;
                 if (doc == null)
                 {
                     return;
                 }
 
-                // Temporary debug line
-                doc.Editor.WriteMessage($"\n[KuroAcad] Ribbon button clicked. Command: {command}");
+                string? command = null;
 
+                if (parameter is RibbonButton button)
+                {
+                    command = button.CommandParameter as string;
+                }
+                else if (parameter is string cmdText)
+                {
+                    command = cmdText;
+                }
+
+                if (string.IsNullOrWhiteSpace(command))
+                {
+                    doc.Editor.WriteMessage("\n[KuroAcad] Ribbon click received but no command found.");
+                    return;
+                }
+
+                command = command.Replace("^C", "", StringComparison.OrdinalIgnoreCase).Trim();
+
+                doc.Editor.WriteMessage($"\n[KuroAcad] Ribbon clicked. Running: {command}");
                 doc.SendStringToExecute("\x03\x03" + command + " ", true, false, true);
             }
         }

@@ -198,60 +198,62 @@
     </Style>
 
     <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+        <Setter Property="Foreground" Value="#1D3A00" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <!-- Phần tròn của RadioButton -->
-                        <Border x:Name="RadioButtonBorder" 
-                                    Grid.Column="0"
-                                    Width="15" 
-                                    Height="15" 
-                                    CornerRadius="10" 
-                                    BorderBrush="#00bcb4" 
-                                    BorderThickness="1"
-                                    Background="White"
-                                    VerticalAlignment="Center"
-                                    Margin="0,0,8,0">
-
-                            <!-- Dấu chấm bên trong khi được chọn -->
-                            <Ellipse x:Name="InnerCircle" 
-                                         Width="10" 
-                                         Height="10" 
-                                         Fill="DimGray" 
-                                         Visibility="Collapsed"/>
+                        <Border x:Name="RadioButtonBorder"
+                                Grid.Column="0"
+                                Width="16"
+                                Height="16"
+                                CornerRadius="8"
+                                BorderBrush="#8BCF43"
+                                BorderThickness="1"
+                                Background="White"
+                                VerticalAlignment="Center"
+                                Margin="0,0,8,0">
+                            <Ellipse x:Name="InnerCircle"
+                                     Width="8"
+                                     Height="8"
+                                     Fill="#8BCF43"
+                                     Visibility="Collapsed"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
                         </Border>
 
-                        <!-- Text của RadioButton -->
-                        <ContentPresenter Grid.Column="1" 
-                                              VerticalAlignment="Center"
-                                              Content="{TemplateBinding Content}"/>
+                        <ContentPresenter Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}" />
                     </Grid>
 
-                    <!-- Triggers để thay đổi giao diện -->
                     <ControlTemplate.Triggers>
-                        <!-- Khi RadioButton được chọn -->
                         <Trigger Property="IsChecked" Value="True">
-                            <!--<Setter TargetName="RadioButtonBorder" Property="Background" Value="LightBlue"/>
-                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="Blue"/>-->
-                            <Setter TargetName="InnerCircle" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="InnerCircle" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="#7EC339" />
                         </Trigger>
 
-                        <!-- Khi hover -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="DarkBlue"/>
+                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="#7EC339" />
+                            <Setter TargetName="RadioButtonBorder" Property="Background" Value="#F7FCEB" />
                         </Trigger>
 
-                        <!-- Khi bị vô hiệu hóa -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="#70B031" />
+                            <Setter TargetName="RadioButtonBorder" Property="Background" Value="#EEF8D8" />
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="RadioButtonBorder" Property="Background" Value="LightGray"/>
-                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="Gray"/>
-                            <Setter TargetName="InnerCircle" Property="Fill" Value="Gray"/>
+                            <Setter TargetName="RadioButtonBorder" Property="Background" Value="#F2F2F2" />
+                            <Setter TargetName="RadioButtonBorder" Property="BorderBrush" Value="#BFBFBF" />
+                            <Setter TargetName="InnerCircle" Property="Fill" Value="#BFBFBF" />
+                            <Setter Property="Foreground" Value="#9E9E9E" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

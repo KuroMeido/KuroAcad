@@ -128,7 +128,7 @@
         </GroupBox>
 
         <Grid Grid.Row="6">
-            <Button Style="{DynamicResource CyanRoundedButtonStyle}"
+            <Button Style="{DynamicResource GreenLightFilledButtonStyle}"
                     Content="OK"
                     Width="100"
                     Height="30"

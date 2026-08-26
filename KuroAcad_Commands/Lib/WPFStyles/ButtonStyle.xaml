@@ -17,7 +17,7 @@
                                                Margin="0,0,0,0" />
                         </Grid>
                     </Border>
-                    
+
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -36,17 +36,12 @@
 
     <Style x:Key="CyanRoundedButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#00BCB4"/>
-        <!-- Default Background -->
         <Setter Property="Foreground" Value="White"/>
-        <!-- Text Color -->
-        <!--<Setter Property="FontSize" Value="16"/>-->
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <!--<Setter Property="Height" Value="40"/>-->
 
-        <!-- Define Button Appearance -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -60,32 +55,24 @@
             </Setter.Value>
         </Setter>
 
-        <!-- Hover and Click Effects -->
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#009A99"/>
-                <!-- Darker Shade on Hover -->
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="#007A79"/>
-                <!-- Even Darker Shade when Clicked -->
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="GrayRoundedButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="#98AAB4"/>
-        <!-- Default Background -->
         <Setter Property="Foreground" Value="White"/>
-        <!-- Text Color -->
-        <!--<Setter Property="FontSize" Value="14"/>-->
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <!--<Setter Property="Height" Value="30"/>-->
 
-        <!-- Define Button Appearance -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -99,15 +86,156 @@
             </Setter.Value>
         </Setter>
 
-        <!-- Hover and Click Effects -->
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#7D919C"/>
-                <!-- Darker Shade on Hover -->
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="#657882"/>
-                <!-- Even Darker Shade when Clicked -->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Light: Green Filled -->
+    <Style x:Key="GreenLightFilledButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#8BCF43"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="24,6"/>
+        <Setter Property="BorderBrush" Value="#8BCF43"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#7EC339"/>
+                <Setter Property="BorderBrush" Value="#7EC339"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#70B031"/>
+                <Setter Property="BorderBrush" Value="#70B031"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Light: Green Outline -->
+    <Style x:Key="GreenLightOutlineButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="#8BCF43"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="24,6"/>
+        <Setter Property="BorderBrush" Value="#8BCF43"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F7FCEB"/>
+                <Setter Property="BorderBrush" Value="#7EC339"/>
+                <Setter Property="Foreground" Value="#7EC339"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#EEF8D8"/>
+                <Setter Property="BorderBrush" Value="#70B031"/>
+                <Setter Property="Foreground" Value="#70B031"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Dark: Green Filled -->
+    <Style x:Key="GreenDarkFilledButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#8BCF43"/>
+        <Setter Property="Foreground" Value="#122100"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="24,6"/>
+        <Setter Property="BorderBrush" Value="#8BCF43"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#7EC339"/>
+                <Setter Property="BorderBrush" Value="#7EC339"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#70B031"/>
+                <Setter Property="BorderBrush" Value="#70B031"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Dark: Green Outline -->
+    <Style x:Key="GreenDarkOutlineButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#121212"/>
+        <Setter Property="Foreground" Value="#8BCF43"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="24,6"/>
+        <Setter Property="BorderBrush" Value="#6FAE2F"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1A1A1A"/>
+                <Setter Property="BorderBrush" Value="#8BCF43"/>
+                <Setter Property="Foreground" Value="#9FDD5D"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#222222"/>
+                <Setter Property="BorderBrush" Value="#70B031"/>
+                <Setter Property="Foreground" Value="#7EC339"/>
             </Trigger>
         </Style.Triggers>
     </Style>

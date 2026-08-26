@@ -89,9 +89,9 @@
         <Button Grid.Row="2"
                 Margin="5,15,5,5"
                 Content="OK"
-                Height="24"
+                Height="30"
                 Width="80"
-                Style="{StaticResource CyanRoundedButtonStyle}"
+                Style="{StaticResource GreenLightFilledButtonStyle}"
                 Command="{Binding DrawCircleCommand}" />
     </Grid>
 </Window>

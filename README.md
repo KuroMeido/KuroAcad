@@ -226,7 +226,7 @@ Contributions are welcome.
 
 ## License
 
-This project is provided free of charge for personal and commercial use.
+This project is provided free of charge for personal use.
 
 If you plan to contribute or redistribute it, please keep the original attribution intact.
 

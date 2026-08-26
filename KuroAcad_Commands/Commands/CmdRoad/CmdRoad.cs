@@ -1,6 +1,7 @@
 ﻿using Autodesk.AutoCAD.Colors;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Color = Autodesk.AutoCAD.Colors.Color;
+using KuroAcad.Helper;
 
 [assembly: CommandClass(typeof(KuroAcad.CmdRoad))]
 namespace KuroAcad
@@ -42,7 +43,7 @@ namespace KuroAcad
             LayerTableRecord ltr = new LayerTableRecord();
 
             string layerName1 = "DUONG";
-            if (KuroExtensions.IsExistingLayer(trans, Layertb, layerName1) == false)
+            if (LayerHelper.IsExistingLayer(trans, Layertb, layerName1) == false)
             {
                 ltr.Name = layerName1;
                 ltr.Color = Color.FromColorIndex(ColorMethod.ByAci, 255);
@@ -52,7 +53,7 @@ namespace KuroAcad
 
             ltr = new LayerTableRecord(); //Add this line
             string layerName2 = "VIAHE";
-            if (KuroExtensions.IsExistingLayer(trans, Layertb, layerName2) == false)
+            if (LayerHelper.IsExistingLayer(trans, Layertb, layerName2) == false)
             {
                 ltr.Name = layerName2;
                 ltr.Color = Color.FromColorIndex(ColorMethod.ByAci, 5);

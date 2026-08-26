@@ -1,3 +1,4 @@
+using KuroAcad.Helper;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace KuroAcad
@@ -102,7 +103,7 @@ namespace KuroAcad
                         }
                     }
 
-                    acTable.Cells[rowIndex, 0].TextString = KuroExtensions.convertToRoman(inDex);
+                    acTable.Cells[rowIndex, 0].TextString = RomanNumeralHelper.ConvertToRoman(inDex);
                     acTable.Cells[rowIndex, 1].TextString = layerName;
                     acTable.Cells[rowIndex, 2].TextString = layerArea.ToString("F2");
 
@@ -137,7 +138,7 @@ namespace KuroAcad
                 acTable.Cells[0, 0].SetValue("LAND USE STRUCTURE TABLE", ParseOption.ParseOptionNone);
 
                 // Set traffic land row
-                acTable.Cells[acTable.NumRows - 2, 0].TextString = KuroExtensions.convertToRoman(acTable.NumRows - 3);
+                acTable.Cells[acTable.NumRows - 2, 0].TextString = RomanNumeralHelper.ConvertToRoman(acTable.NumRows - 3);
                 acTable.Cells[acTable.NumRows - 2, 1].TextString = "TRAFFIC LAND";
                 acTable.Cells[acTable.NumRows - 2, 2].TextString = (totalArea - totalAreaHatch).ToString("F2");
                 acTable.Cells[acTable.NumRows - 2, 3].TextString = (((totalArea - totalAreaHatch) / totalArea) * 100).ToString("F2") + "%";

@@ -1,4 +1,5 @@
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
+using KuroAcad.Helper;
 
 namespace KuroAcad
 {
@@ -38,7 +39,7 @@ namespace KuroAcad
                 }
 
                 // Sort blocks by first character of attribute tag "TEN"
-                List<Entity> blSorted = KuroExtensions.SortBlocksByAttributeList(blRefEntities, acTrans);
+                List<Entity> blSorted = BlockAttributeHelper.SortBlocksByAttributeList(blRefEntities, acTrans);
 
                 // Get point from user
                 PromptPointResult ppr = acDoc.Editor.GetPoint("\nSelect an insertion point: ");
@@ -68,11 +69,11 @@ namespace KuroAcad
                 acTable.Cells[0, 0].SetValue("LAND-USE STATISTICS TABLE", ParseOption.ParseOptionNone);
 
                 // Set data
-                List<char> listChar = KuroExtensions.GetListFirstChar(blSorted, acTrans);
+                List<char> listChar = BlockAttributeHelper.GetListFirstChar(blSorted, acTrans);
                 foreach (char c in listChar)
                 {
-                    List<Entity> blByChar = KuroExtensions.GetBlockAttributes(blSorted, acTrans, c);
-                    KuroExtensions.AddDataToTable(acTable, blByChar, acTrans, c);
+                    List<Entity> blByChar = BlockAttributeHelper.GetBlockAttributes(blSorted, acTrans, c);
+                    BlockAttributeHelper.AddDataToTable(acTable, blByChar, acTrans, c);
                 }
 
                 // Total row

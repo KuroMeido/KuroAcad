@@ -100,7 +100,7 @@ namespace KuroAcad
                 }
             }
         }
-        private RibbonButton CreateButton(KuroRibbonButtonData buttonData)
+        private RibbonButton CreateButton(RibbonButtonDefinition buttonData)
         {
             var icon = imageLoader.Load(buttonData.IconPath);
 

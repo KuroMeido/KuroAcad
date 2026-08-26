@@ -1,232 +1,244 @@
 # KuroAcad
 
-A comprehensive AutoCAD plugin designed for urban planning applications. Built with C#, KuroAcad provides specialized tools for architects, urban planners, and developers to streamline planning workflows in AutoCAD.
+KuroAcad is an AutoCAD plugin for urban planning workflows. Built in C#, it provides commands and utilities for geometric analysis, planning block creation, polyline processing, and data extraction to help architects, urban planners, and developers work more efficiently.
 
 ## Overview
 
-KuroAcad is a plugin extension for AutoCAD that offers a suite of commands and utilities tailored for urban planning tasks. It includes tools for geometric calculations, block creation with planning data, polyline operations, and urban planning data management.
+KuroAcad extends AutoCAD with tools tailored for urban planning and CAD-based analysis. The plugin focuses on common planning tasks such as measuring geometry, managing planning blocks, extracting terrain data, and finding intersections in drawings.
 
 ## Features
 
-- **Geometric Calculations**: Calculate area, perimeter, and other spatial measurements
-- **Urban Planning Blocks**: Create and manage blocks with planning attributes (name, area, density, floors, FAR)
-- **Polyline Operations**: Trim roads, find intersections, and analyze polyline geometry
-- **Block Management**: Automated block creation and attribute assignment for planning projects
-- **Data Analysis**: Extract and analyze urban planning data from CAD drawings
-- **Intersection Detection**: Find intersection points between polylines for precise planning analysis
+- **Geometric calculations** — area, perimeter, and other spatial measurements
+- **Urban planning blocks** — create and manage blocks with attributes such as name, area, density, floors, and FAR
+- **Polyline operations** — trim roads, find intersections, and analyze polyline geometry
+- **Block management** — automate block creation and attribute assignment for planning projects
+- **Data analysis** — extract and analyze urban planning data from CAD drawings
+- **Intersection detection** — identify intersection points between polylines for precise analysis
 
 ## Requirements
 
-- AutoCAD (compatible version with .NET API support)
-- .NET Framework 4.7+ or .NET Core equivalent
-- Administrator privileges to install the plugin
+- AutoCAD with .NET API support
+- .NET Framework 4.7+ or compatible .NET runtime
+- Administrator privileges may be required for installation
 
 ## Installation
 
-1. **Clone or Download** the repository:
+1. **Clone the repository**
    ```bash
    git clone https://github.com/KuroMeido/KuroAcad.git
    ```
 
-2. **Build the Project**:
+2. **Build the project**
    - Open `KuroAcad.sln` in Visual Studio
-   - Build the solution (Release configuration recommended)
-   - Output DLL will be generated in the bin/Release folder
+   - Build the solution, preferably in `Release`
+   - The output DLL will be generated in the `bin/Release` folder
 
-3. **Install the Plugin**:
+3. **Install the plugin**
    - Copy the compiled DLL to your AutoCAD plugins folder
-   - Or load directly in AutoCAD using `NETLOAD` command
+   - Or load it directly in AutoCAD using the `NETLOAD` command
 
-4. **License Activation**:
-   - The plugin includes key verification. You'll need a valid activation key
+4. **Activate the license**
+   - The plugin includes license verification
+   - A valid activation key is required
    - Keys are generated using the computer identification system
 
 ## Usage
 
-### Command Reference
+Commands are entered directly in AutoCAD through the command line.
 
-All commands are accessed directly in AutoCAD using the command line:
+### KTemDat — Create Urban Planning Block
 
-#### 1. **KTemDat** - Create Urban Planning Block
-Creates a block with urban planning data (area, density, floors, FAR).
+Creates a block with urban planning data such as area, density, floors, and FAR.
 
+**Command:**
+```text
+KTemDat
 ```
-Command: KTemDat
-```
 
-**Steps**:
-- Opens a dialog for configuring block parameters
-- Select layout mode (simple or detailed)
+**Workflow:**
+- Open a dialog to configure block parameters
+- Choose a layout mode: simple or detailed
 - Enter planning data:
-  - Name (project/block name)
-  - Area (in square units)
-  - Density (residential/commercial density)
-  - Number of Floors
-  - FAR (Floor Area Ratio)
-- Select polyline in drawing
-- Block is created with attribute values populated
+  - Name
+  - Area
+  - Density
+  - Number of floors
+  - FAR
+- Select a polyline in the drawing
+- The block is created and populated with attribute values
 
-**Example**:
+**Example**
 ```csharp
-// Internal usage
 CmdCreateBlock cmdBlock = new CmdCreateBlock();
-cmdBlock.KuroTemDat();  // Launches the command
+cmdBlock.KuroTemDat();
 ```
 
-#### 2. **KGetTD** - Get Terrain Data & Create Table
+### KGetTD — Get Terrain Data and Create Table
+
 Extracts polyline data and generates a summary table with coordinates and segment lengths.
 
-```
-Command: KGetTD
+**Command:**
+```text
+KGetTD
 ```
 
-**Steps**:
-- Prompts for decimal precision (default: 2)
+**Workflow:**
+- Enter decimal precision, defaulting to 2
 - Select polylines to analyze
-- Specifies table insertion point
-- Creates table with vertex coordinates and segment information
+- Choose the table insertion point
+- A table is created with vertex coordinates and segment information
 
-#### 3. **KTrimRoad** - Trim Road/Polyline
+### KTrimRoad — Trim Road / Polyline
+
 Trims or processes polyline geometry for road network analysis.
 
-```
-Command: KTrimRoad
+**Command:**
+```text
+KTrimRoad
 ```
 
-**Steps**:
+**Workflow:**
 - Select polylines to trim
 - Specify trim boundaries or criteria
-- Results are displayed in command line
+- Review the results in the command line
 
-#### 4. **KuroIntersect** - Find Intersection Points
+### KuroIntersect — Find Intersection Points
+
 Detects and displays intersection points between two polylines.
 
-```
-Command: KuroIntersect
+**Command:**
+```text
+KuroIntersect
 ```
 
-**Output**:
+**Output:**
 - Number of intersection points found
-- Coordinates (X, Y) of each intersection point
+- X and Y coordinates for each intersection point
 
-#### 5. **KTKLD** - Urban Planning Analysis
-Advanced analysis tool for block references and planning data.
+### KTKLD — Urban Planning Analysis
 
+Performs advanced analysis for block references and planning data.
+
+**Command:**
+```text
+KTKLD
 ```
-Command: KTKLD
-```
 
-**Steps**:
+**Workflow:**
 - Select block references to analyze
 - Process planning data
-- Generate analysis results
+- Review generated analysis results
 
-### Example Workflow
+## Example Workflows
 
-**Creating a Planning Block**:
+### Create a Planning Block
 
-1. Open your AutoCAD drawing with planning area polylines
-2. Run command: `KTemDat`
-3. Configure block parameters in dialog:
-   - Name: "District A"
-   - Area: "50000" sq.m
-   - Density: "150" persons/hectare
-   - Floors: "8"
-   - FAR: "2.5"
-4. Click OK
-5. Select the polyline boundary
-6. Block with all planning data is inserted into drawing
+1. Open an AutoCAD drawing containing a planning boundary polyline
+2. Run `KTemDat`
+3. Enter block parameters such as:
+   - Name: `District A`
+   - Area: `50000`
+   - Density: `150`
+   - Floors: `8`
+   - FAR: `2.5`
+4. Confirm the dialog
+5. Select the boundary polyline
+6. The planning block is inserted into the drawing
 
-**Analyzing Terrain Data**:
+### Analyze Terrain Data
 
-1. Have polylines representing terrain contours or boundaries
-2. Run command: `KGetTD`
-3. Set decimal precision (e.g., 2 decimals)
-4. Select polylines
-5. Specify table position
-6. Table is created showing all coordinates and distances
+1. Open a drawing with terrain contours or boundary polylines
+2. Run `KGetTD`
+3. Set the desired decimal precision
+4. Select the polylines
+5. Choose the table insertion point
+6. Review the generated table of coordinates and distances
 
-**Finding Road Intersections**:
+### Find Road Intersections
 
-1. Have two polylines representing roads
-2. Run command: `KuroIntersect`
-3. System displays all intersection points with coordinates
+1. Select two polylines representing roads
+2. Run `KuroIntersect`
+3. View the reported intersection points and coordinates
 
 ## Code Structure
 
 ### Main Components
 
-- **Commands/**: AutoCAD command implementations
-  - `CmdCreateBlock.cs` - Block creation with planning attributes
-  - `CmdGetTD.cs` - Terrain data extraction
-  - `CmdTrimRoad.cs` - Road trimming operations
-  - `CmdTKLD.cs` - Advanced planning analysis
+- **Commands/**
+  - `CmdCreateBlock.cs` — planning block creation
+  - `CmdGetTD.cs` — terrain data extraction
+  - `CmdTrimRoad.cs` — road trimming operations
+  - `CmdTKLD.cs` — planning analysis
 
-- **Extensions/**: Utility methods
-  - `KuroExtensions.cs` - Helper functions for:
+- **Extensions/**
+  - `KuroExtensions.cs` — helper utilities for:
     - Roman numeral conversion
     - Block attribute sorting
     - Point calculations
     - Table operations
     - Layer management
 
-- **Entry/**: Plugin initialization
-  - `ExtensionApplication.cs` - Plugin startup, key verification
+- **Entry/**
+  - `ExtensionApplication.cs` — plugin startup and license verification
 
 ### Key Classes
 
-**KuroDemo** - Basic geometric calculations
+**KuroDemo** — Basic geometric calculations
 ```csharp
-KuroDemo demo = new KuroDemo(100, 50);  // Length, Width
-demo.TinhToan();                        // Calculate
+KuroDemo demo = new KuroDemo(100, 50);
+demo.TinhToan();
 // Results: KQ_DienTich (Area), KQ_ChuVi (Perimeter)
 ```
 
-**KuroExtensions** - Utility methods for CAD operations
-- `InsertingABlock()` - Insert blocks at specific locations
-- `GetCenterPoint()` - Calculate polyline center
-- `CopyEntities()` - Duplicate CAD objects
-- `GetBlockAttributes()` - Extract block attributes
+**KuroExtensions** — Utility methods for CAD operations
+- `InsertingABlock()` — insert blocks at specific locations
+- `GetCenterPoint()` — calculate polyline center point
+- `CopyEntities()` — duplicate CAD objects
+- `GetBlockAttributes()` — extract block attributes
 
 ## Configuration
 
-- **License Key**: Configured in `ExtensionApplication.cs` (Key: "18DBE8E0")
-- **Default Settings**: Block radius, precision, table formatting can be customized in command files
+- **License key**: configured in `ExtensionApplication.cs` with key `18DBE8E0`
+- **Default settings**: block radius, precision, and table formatting can be adjusted in command files
 
 ## Troubleshooting
 
-**Plugin fails to load**:
-- Check license key validity
-- Ensure .NET Framework is installed
+### Plugin fails to load
+- Check that the license key is valid
+- Ensure the required .NET Framework is installed
 - Verify AutoCAD compatibility
 
-**Commands not recognized**:
-- Reload plugin using `NETLOAD`
-- Check if plugin is loaded: `APPLOAD`
+### Commands are not recognized
+- Reload the plugin using `NETLOAD`
+- Check whether the plugin is loaded with `APPLOAD`
 
-**Selection issues**:
+### Selection issues
 - Ensure objects are visible and unlocked
-- Select objects on correct layer
+- Confirm you are selecting entities on the correct layer
 
 ## Contributing
 
-Contributions are welcome! Please feel free to:
+Contributions are welcome.
+
 1. Report issues
 2. Suggest enhancements
 3. Submit pull requests
 
 ## License
 
-[Add your chosen license here]
+This project is provided free of charge for personal and commercial use.
+
+If you plan to contribute or redistribute it, please keep the original attribution intact.
 
 ## Support
 
-For issues, questions, or feature requests, please open an [issue on GitHub](https://github.com/KuroMeido/KuroAcad/issues).
+For issues, questions, or feature requests, please open an issue on GitHub:
+https://github.com/KuroMeido/KuroAcad/issues
 
 ---
 
-**Project Info**:
+**Project Info**
 - Language: C#
-- Target Platform: AutoCAD via .NET API
+- Target platform: AutoCAD via .NET API
 - Created: June 3, 2024
-- Repository: [KuroMeido/KuroAcad](https://github.com/KuroMeido/KuroAcad)
+- Repository: https://github.com/KuroMeido/KuroAcad

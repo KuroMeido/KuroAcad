@@ -37,10 +37,6 @@ KuroAcad extends AutoCAD with tools tailored for urban planning and CAD-based an
    - Copy the compiled DLL to your AutoCAD plugins folder
    - Or load it directly in AutoCAD using the `NETLOAD` command
 
-4. **Activate the license**
-   - The plugin includes license verification
-   - A valid activation key is required
-   - Keys are generated using the computer identification system
 
 ## Usage
 
@@ -226,7 +222,7 @@ Contributions are welcome.
 
 ## License
 
-This project is provided free of charge for personal and commercial use.
+This project is provided free of charge for personal use.
 
 If you plan to contribute or redistribute it, please keep the original attribution intact.
 

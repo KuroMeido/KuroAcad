@@ -89,7 +89,7 @@ Creates a block with urban planning attributes.
 
 **Code Example:**
 ```csharp
-CmdCreateBlock cmdBlock = new CmdCreateBlock();
+CmdTemDat cmdBlock = new CmdTemDat();
 cmdBlock.KuroTemDat();
 ```
 
@@ -123,7 +123,7 @@ Detects and displays intersection points between two polylines.
 
 | Aspect | Details |
 |---|---|
-| **Command** | `KuroIntersect` |
+| **Command** | `KIntersection` |
 | **Output** | • Number of intersection points<br>• X and Y coordinates for each point |
 
 ---
@@ -167,7 +167,7 @@ Performs advanced analysis for block references and planning data.
 ### Find Road Intersections
 
 1. Select two polylines (roads)
-2. Run `KuroIntersect`
+2. Run `KIntersection`
 3. View intersection points and coordinates
 
 ---
@@ -179,56 +179,54 @@ Performs advanced analysis for block references and planning data.
 ```
 KuroAcad/
 ├── KuroAcad_Commands/
-│   └── Commands/
-│       ├── CmdTD/
-│       │   ├── CmdGetTD.cs         — Command: KGetTD (terrain data extraction)
-│       │   └── CmdSetTD.cs         — Command: KSetTD (terrain data settings)
-│       ├── CmdTrimRoad/
-│       │   └── CmdTrimRoad.cs      — Command: KTrimRoad (trim road / polyline)
-│       ├── CmdTKLD/
-│       │   └── CmdTKLD.cs          — Command: KTKLD (urban planning analysis)
-│       ├── CmdTKSDD/
-│       │   └── CmdTKSDD.cs         — Command: KTKSDD (district/land-use analysis)
-│       ├── CmdIntersection/
-│       │   └── CmdIntersection.cs  — Command: KIntersection (find intersections)
-│       ├── CmdRoad/
-│       │   └── CmdRoad.cs          — Command: KRoad (road drawing / offsets)
-│       ├── CmdMakeRoad/
-│       │   ├── CmdMakeRoad.cs      — Command: Mark4Intersections (mark intersections on 4 lines)
-│       │   └── CmdMakeFillet.cs    — Command: MakeRoadFillet4 (fillet road corners)
-│       └── CmdPalette/
-│           └── CmdPalette.cs       — Commands: KPalette, KCircleWPF
-├── Extensions/
-│   └── KuroExtensions.cs          — Helper utilities
-├── Entry/
-│   └── ExtensionApplication.cs    — Plugin startup & licensing
-└── Models/
-    └── KuroDemo.cs                — Geometric calculations
+│   ├── Commands/
+│   │   ├── CmdTemDat/            — Tem dat command entry point
+│   │   ├── CmdTD/                — Terrain data commands
+│   │   ├── CmdTrimRoad/          — Road trimming command
+│   │   ├── CmdTKLD/              — TKLD analysis command
+│   │   ├── CmdTKSDD/             — TKSDD analysis command
+│   │   ├── CmdIntersection/      — Intersection command
+│   │   ├── CmdRoad/              — Road creation command
+│   │   ├── CmdMakeRoad/          — Intersection marking / fillet commands
+│   │   └── CmdPalette/           — Palette and WPF UI commands
+│   ├── Lib/
+│   │   ├── Helper/               — Shared helper utilities
+│   │   ├── System/               — Ribbon and command infrastructure
+│   │   ├── Utils/                — Main command implementations
+│   │   └── WPFStyles/            — Shared WPF styles
+│   └── ...
+├── ClassLibrary1/
+│   └── Properties/AssemblyInfo.cs
+└── README.md
 ```
 
-### Key Classes
+### Key Areas
 
-#### **KuroDemo** — Basic Geometric Calculations
-```csharp
-KuroDemo demo = new KuroDemo(100, 50);
-demo.TinhToan();
-// Results: KQ_DienTich (Area), KQ_ChuVi (Perimeter)
-```
+#### **Lib/Helper** — Shared CAD Utilities
+Helpers used across commands, such as:
+- `LayerHelper`
+- `BlockInsertHelper`
+- `RomanNumeralHelper`
 
-#### **KuroExtensions** — CAD Operation Utilities
-| Method | Purpose |
-|---|---|
-| `InsertingABlock()` | Insert blocks at specific locations |
-| `GetCenterPoint()` | Calculate polyline center point |
-| `CopyEntities()` | Duplicate CAD objects |
-| `GetBlockAttributes()` | Extract block attributes |
+#### **Lib/System** — Ribbon and UI Infrastructure
+Ribbon setup and command definitions, including:
+- `KuroRibbon`
+- `KuroRibbonButtons`
 
-**Utility Features:**
-- Roman numeral conversion
-- Block attribute sorting
-- Point calculations
-- Table operations
-- Layer management
+#### **Lib/Utils** — Main Command Logic
+Command implementations and workflows, such as:
+- `TKSDDUtil`
+- `GetTDUtil`
+- `SetTDUtil`
+- `TrimRoadUtil`
+- `TemDatUtil`
+- `IntersectionUtils`
+
+#### **Lib/WPFStyles** — Shared WPF Resources
+Style resources used by the palette and UI:
+- `ButtonStyle.xaml`
+- `CheckBoxStyle.xaml`
+- `ListBoxItemStyle.xaml`
 
 ---
 

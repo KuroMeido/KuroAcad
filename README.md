@@ -195,8 +195,6 @@ KuroAcad/
 │   │   ├── Utils/                — Main command implementations
 │   │   └── WPFStyles/            — Shared WPF styles
 │   └── ...
-├── ClassLibrary1/
-│   └── Properties/AssemblyInfo.cs
 └── README.md
 ```
 

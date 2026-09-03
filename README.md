@@ -178,17 +178,32 @@ Performs advanced analysis for block references and planning data.
 
 ```
 KuroAcad/
-├── Commands/
-│   ├── CmdCreateBlock.cs       — Planning block creation
-│   ├── CmdGetTD.cs             — Terrain data extraction
-│   ├── CmdTrimRoad.cs          — Road trimming operations
-│   └── CmdTKLD.cs              — Planning analysis
+├── KuroAcad_Commands/
+│   └── Commands/
+│       ├── CmdTD/
+│       │   ├── CmdGetTD.cs         — Command: KGetTD (terrain data extraction)
+│       │   └── CmdSetTD.cs         — Command: KSetTD (terrain data settings)
+│       ├── CmdTrimRoad/
+│       │   └── CmdTrimRoad.cs      — Command: KTrimRoad (trim road / polyline)
+│       ├── CmdTKLD/
+│       │   └── CmdTKLD.cs          — Command: KTKLD (urban planning analysis)
+│       ├── CmdTKSDD/
+│       │   └── CmdTKSDD.cs         — Command: KTKSDD (district/land-use analysis)
+│       ├── CmdIntersection/
+│       │   └── CmdIntersection.cs  — Command: KIntersection (find intersections)
+│       ├── CmdRoad/
+│       │   └── CmdRoad.cs          — Command: KRoad (road drawing / offsets)
+│       ├── CmdMakeRoad/
+│       │   ├── CmdMakeRoad.cs      — Command: Mark4Intersections (mark intersections on 4 lines)
+│       │   └── CmdMakeFillet.cs    — Command: MakeRoadFillet4 (fillet road corners)
+│       └── CmdPalette/
+│           └── CmdPalette.cs       — Commands: KPalette, KCircleWPF
 ├── Extensions/
-│   └── KuroExtensions.cs       — Helper utilities
+│   └── KuroExtensions.cs          — Helper utilities
 ├── Entry/
-│   └── ExtensionApplication.cs — Plugin startup & licensing
+│   └── ExtensionApplication.cs    — Plugin startup & licensing
 └── Models/
-    └── KuroDemo.cs             — Geometric calculations
+    └── KuroDemo.cs                — Geometric calculations
 ```
 
 ### Key Classes
